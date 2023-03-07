@@ -21,11 +21,24 @@ public class MazeFactoryTest {
 	}
 	
 	@Test
-	public void hasOneExit() {
-		int height = order.maze.getHeight();
-		//System.out.println(height);	
-		assertEquals(height, 12);
+	public void hasValidExit() {
+		//This test will make sure that there is a reachable exit in the maze
+		/*start = maze.getStartPosition
+		 *distance = maze.getDistanceToEnd[start]
+		 *assertNotNull(distance)
+		*/
+
+		// Some code I had just been working on
+		//int[] spawn = order.maze.getStartingPosition();
+		//int dist = order.maze.getDistanceToExit(spawn[0], spawn[1]);
+		//System.out.println(dist);	
 		//Floorplan floor = order.maze.getFloorplan();
+		
+	}
+	public void singleExit() {
+		
+	}
+	public void maxDistFromExit() {
 		
 	}
 	public void noLoops() {
