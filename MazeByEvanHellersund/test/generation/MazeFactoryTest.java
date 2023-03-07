@@ -1,6 +1,8 @@
 package generation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,50 +25,41 @@ public class MazeFactoryTest {
 	@Test
 	public void hasValidExit() {
 		//This test will make sure that there is a reachable exit in the maze
-		/*start = maze.getStartPosition
-		 *distance = maze.getDistanceToEnd[start]
-		 *assertNotNull(distance)
-		*/
+		int[] spawn = order.maze.getStartingPosition();
+		int dist = order.maze.getDistanceToExit(spawn[0], spawn[1]);
+		assertNotNull(dist);
 
-		// Some code I had just been working on
-		//int[] spawn = order.maze.getStartingPosition();
-		//int dist = order.maze.getDistanceToExit(spawn[0], spawn[1]);
-		//System.out.println(dist);	
-		//Floorplan floor = order.maze.getFloorplan();
 		
 	}
 	@Test
 	public void singleExit() {
-		/*This test will make sure the maze generated with only one exit possible
-		 * floor = maze.getFloorplan
-		 * int size = maze.getHeight
-		 * int numExits = 0
-		 * for (int i = 0; i < size; i++) {
+		//This test will make sure the maze generated with only one exit possible
+		Floorplan floor = order.maze.getFloorplan();
+		int size = order.maze.getHeight();
+		int numExits = 0;
+		for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-            	if (floor.isExitPosition(i, j) {
-            	numExits++
+            	if (floor.isExitPosition(i, j)) {
+            		numExits++;
+            	}
             }
-            assertEquals(numExits, 1)
-		 * 
-		 */
-		
+		}
+		assertEquals(numExits, 1);
 	}
 	@Test
 	public void maxDistFromExit() {
-		/*This test will ensure that the start of the maze is the furthest position from the exit
-		 * and also that the starting point allows you to reach the exit (somewhat redundant)
-		 * start[] = maze.getStartPosition
-		 * int distance = maze.getDistanceToEnd[start]
-		 * int size = maze.getHeight
-		 * newdist = 0
-		 * for (int i = 0; i < size; i++) {
+		//This test will ensure that the start of the maze is the furthest position from the exit
+		int[] start = order.maze.getStartingPosition();
+		int size = order.maze.getHeight();
+		int newdist = 0;
+		for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-            	if (maze.getDistanceToEnd(i, j)>newdist) {
-            	newdist = maze.GetDistanceToEnd(i, j)
+            	if (order.maze.getDistanceToExit(i, j) > newdist) {
+            	newdist = order.maze.getDistanceToExit(i, j);
+            	}
             }
-            }
-            assertTrue(maze.getDistanceToEnd[start] > newdist)
-		 */
+		}
+		assertTrue(order.maze.getDistanceToExit(start[0], start[1]) >= newdist);
 	}
 	@Test
 	public void wallTest() {
