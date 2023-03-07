@@ -35,7 +35,20 @@ public class MazeFactoryTest {
 		//Floorplan floor = order.maze.getFloorplan();
 		
 	}
+	@Test
 	public void singleExit() {
+		/*This test will make sure the maze generated with only one exit possible
+		 * floor = maze.getFloorplan
+		 * int size = maze.getHeight
+		 * int numExits = 0
+		 * for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+            	if (floor.isExitPosition(i, j) {
+            	numExits++
+            }
+            assertEquals(numExits, 1)
+		 * 
+		 */
 		
 	}
 	public void maxDistFromExit() {
