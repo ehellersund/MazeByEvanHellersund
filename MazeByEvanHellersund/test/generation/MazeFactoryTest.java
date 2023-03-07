@@ -68,9 +68,6 @@ public class MazeFactoryTest {
             assertTrue(maze.getDistanceToEnd[start] > newdist)
 		 */
 	}
-	public void noLoops() {
-		
-	}
 	@Test
 	public void wallTest() {
 		/*This test will ensure that a perfect maze has the correct number of walls. Will end differently if the maze is not perfect/has rooms
@@ -101,6 +98,7 @@ public class MazeFactoryTest {
             }
             else {
             system.out.println("Not perfect maze")
+            assertEquals(hasRooms, false)
             }
 		 */
 	}
