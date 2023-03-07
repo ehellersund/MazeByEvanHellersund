@@ -46,6 +46,7 @@ public class MazeFactoryTest {
 		}
 		assertEquals(numExits, 1);
 	}
+	
 	@Test
 	public void maxDistFromExit() {
 		//This test will ensure that the start of the maze is the furthest position from the exit
@@ -61,38 +62,40 @@ public class MazeFactoryTest {
 		}
 		assertTrue(order.maze.getDistanceToExit(start[0], start[1]) >= newdist);
 	}
+	
 	@Test
 	public void wallTest() {
-		/*This test will ensure that a perfect maze has the correct number of walls. Will end differently if the maze is not perfect/has rooms
-		 * boolean hasRooms = false
-		 * int walls = 0
-		 * int size = maze.getHeight
-		 * for (int i = 0; i < size; i++) {
+		//This test will ensure that a perfect maze has the correct number of walls. Will end differently if the maze is not perfect/has rooms
+		 boolean hasRooms = false;
+		 int walls = 0;
+		 int size = order.maze.getHeight();
+		 for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-            	if (maze.isInRoom(i, j) = true) {
-            		hasRooms = true
-            		break
+            	if (order.maze.isInRoom(i, j) == true) {
+            		hasRooms = true;
+            		break;
             	}
-            	if maze.hasWall(i, j, CardinalDirection.North) {
-            		walls++
+            	if (order.maze.hasWall(i, j, CardinalDirection.North)) {
+            		walls++;
             	}
-            	if maze.hasWall(i, j, CardinalDirection.East) {
-            		walls++
+            	if (order.maze.hasWall(i, j, CardinalDirection.East)) {
+            		walls++;
             	}
-            	if maze.hasWall(i, j, CardinalDirection.South) {
-            		walls++
+            	if (order.maze.hasWall(i, j, CardinalDirection.South)) {
+            		walls++;
             	}
-            	if maze.hasWall(i, j, CardinalDirection.West) {
-            		walls++
+            	if (order.maze.hasWall(i, j, CardinalDirection.West)) {
+            		walls++;
             	}
             }
-            if (hasRooms = false) {
-            assertEquals(walls, correctwalls)
+		 }
+            if (hasRooms == false) {
+            	System.out.println(size);
+            	assertEquals(walls, 0);
             }
             else {
-            system.out.println("Not perfect maze")
-            assertEquals(hasRooms, false)
+            	System.out.println("Not perfect maze");
+            	assertEquals(hasRooms, false);
             }
-		 */
 	}
 }
