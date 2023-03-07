@@ -52,7 +52,19 @@ public class MazeFactoryTest {
 		
 	}
 	public void maxDistFromExit() {
-		
+		/*This test will ensure that the start of the maze is the furthest position from the exit
+		 * and also that the starting point allows you to reach the exit (somewhat redundant)
+		 * start[] = maze.getStartPosition
+		 * int distance = maze.getDistanceToEnd[start]
+		 * int size = maze.getHeight
+		 * newdist = 0
+		 * for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+            	if (maze.getDistanceToEnd(i, j)>newdist) {
+            	newdist = maze.GetDistanceToEnd(i, j)
+            }
+            assertTrue(maze.getDistanceToEnd[start] > newdist)
+		 */
 	}
 	public void noLoops() {
 		
