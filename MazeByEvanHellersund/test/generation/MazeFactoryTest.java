@@ -51,6 +51,7 @@ public class MazeFactoryTest {
 		 */
 		
 	}
+	@Test
 	public void maxDistFromExit() {
 		/*This test will ensure that the start of the maze is the furthest position from the exit
 		 * and also that the starting point allows you to reach the exit (somewhat redundant)
@@ -63,18 +64,44 @@ public class MazeFactoryTest {
             	if (maze.getDistanceToEnd(i, j)>newdist) {
             	newdist = maze.GetDistanceToEnd(i, j)
             }
+            }
             assertTrue(maze.getDistanceToEnd[start] > newdist)
 		 */
 	}
 	public void noLoops() {
 		
 	}
-	public void noBadSpots() {
-		
-	}
+	@Test
 	public void wallTest() {
-		
-	}
-	public static void main() {
+		/*This test will ensure that a perfect maze has the correct number of walls. Will end differently if the maze is not perfect/has rooms
+		 * boolean hasRooms = false
+		 * int walls = 0
+		 * int size = maze.getHeight
+		 * for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+            	if (maze.isInRoom(i, j) = true) {
+            		hasRooms = true
+            		break
+            	}
+            	if maze.hasWall(i, j, CardinalDirection.North) {
+            		walls++
+            	}
+            	if maze.hasWall(i, j, CardinalDirection.East) {
+            		walls++
+            	}
+            	if maze.hasWall(i, j, CardinalDirection.South) {
+            		walls++
+            	}
+            	if maze.hasWall(i, j, CardinalDirection.West) {
+            		walls++
+            	}
+            }
+            if (hasRooms = false) {
+            assertEquals(walls, correctwalls)
+            }
+            else {
+            system.out.println("Not perfect maze")
+            }
+		 */
 	}
 }
