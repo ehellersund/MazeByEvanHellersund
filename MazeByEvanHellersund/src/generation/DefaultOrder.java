@@ -127,7 +127,7 @@ public class DefaultOrder implements Order {
 		// seed = 13; // some arbitrary starting value
 		// maze = null; // there is no maze object at this moment
 		// progress = 0; // 0 is an ok starting value for progress
-		init(0, Builder.DFS, true, 13, null, 0);
+		init(1, Builder.DFS, true, 13, null, 0);
 		
 	}
 	/**
