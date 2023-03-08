@@ -31,10 +31,13 @@ public class MazeBuilderBoruvka extends MazeBuilder {
 	
 	@Override protected void generatePathways() {
 		//Boruvka's Pseudocode
-		/* Find minimum weight edge
-		 * Mark it as visited
-		 * 
-		 * 
+		/* Step 1: Initialize maze of all wallboards
+		 * Step 2: Assign (distinct) weights to all internal wallboards
+		 * Step 3: Create a forest for each 1-tree vertex (each square)
+		 * Step 4: For each square, check its wallboards and add the cheaper wallboard to the forest
+		 * Step 5: Then for each new component find the cheapest connecting wallboard
+		 * Step 6: Repeat until the full minimum tree is made
+		 * Step 7: Remove the walls 
 		 */
 	}
 
