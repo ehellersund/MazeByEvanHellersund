@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MazeFactoryTest {
+public class MazeBuilderBoruvkaTest {
 	public MazeFactory mazefac;
 	public DefaultOrder order;
 
@@ -24,7 +24,7 @@ public class MazeFactoryTest {
 	
 	@Test
 	public void hasValidExit() {
-		//This test will make sure that there is a reachable exit in the maze.
+		//This test will make sure that there is a reachable exit in the maze
 		int[] spawn = order.maze.getStartingPosition();
 		int dist = order.maze.getDistanceToExit(spawn[0], spawn[1]);
 		assertNotNull(dist);
@@ -33,7 +33,7 @@ public class MazeFactoryTest {
 	}
 	@Test
 	public void singleExit() {
-		//This test will make sure the maze generated with only one exit possible.
+		//This test will make sure the maze generated with only one exit possible
 		Floorplan floor = order.maze.getFloorplan();
 		int size = order.maze.getHeight();
 		int numExits = 0;
@@ -49,7 +49,7 @@ public class MazeFactoryTest {
 	
 	@Test
 	public void maxDistFromExit() {
-		//This test will ensure that the start of the maze is the farthest position from the exit.
+		//This test will ensure that the start of the maze is the furthest position from the exit
 		int[] start = order.maze.getStartingPosition();
 		int size = order.maze.getHeight();
 		int newdist = 0;
@@ -65,7 +65,7 @@ public class MazeFactoryTest {
 	
 	@Test
 	public void wallTest() {
-		//This test will ensure that a perfect maze has the correct number of walls. Will end differently if the maze is not perfect/has rooms.
+		//This test will ensure that a perfect maze has the correct number of walls. Will end differently if the maze is not perfect/has rooms
 		 boolean hasRooms = false;
 		 int walls = 0;
 		 int size = order.maze.getHeight();
@@ -98,4 +98,5 @@ public class MazeFactoryTest {
             	assertEquals(hasRooms, false);
             }
 	}
+
 }
