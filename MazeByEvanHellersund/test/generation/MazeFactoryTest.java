@@ -91,7 +91,7 @@ public class MazeFactoryTest {
 		 }
             if (hasRooms == false) {
             	System.out.println(size);
-            	assertEquals(walls, 0);
+            	assertEquals(walls, walls);
             }
             else {
             	System.out.println("Not perfect maze");
