@@ -2,6 +2,19 @@ package gui;
 
 import generation.Maze;
 
+/*Class: 
+ * 	Wizard
+ *Responsibilities:
+ *	Uses maze info to find the shortest way out of a maze
+ *	Uses sensors to CONFIRM locations of walls
+ *	Stops robot in the event that it drives it into a wall
+ *Collaborators
+ *	RobotDriver (inherits from)
+ *	Robot (operates this robot, drives it to exit)
+ *	Maze (uses the info here to find the exit)
+ *	ReliableSensor (confirm locations of walls)
+ */
+
 public class Wizard implements RobotDriver {
 
 	@Override
