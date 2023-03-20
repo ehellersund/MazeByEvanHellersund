@@ -4,6 +4,19 @@ import generation.CardinalDirection;
 import generation.Maze;
 import gui.Robot.Direction;
 
+/*Class: 
+ * 	ReliableSensor
+ *Responsibilities:
+ *	Looks at maze to figure out how far away from a wall a sensor is
+ *	Passes this information to whatever RobotDriver is being used so that it can navigate the maze
+ *	Also passes what direction it is looking, and how much energy it cost to use the sensor
+ *	Does NOT implement failing & repairing because it is reliable
+ *Collaborators
+ *	Maze (uses it so that it can get the necessary info for distance from walls + "see" them)
+ *	Wizard (used by it to confirm locations of walls)
+ *	WallFollower (will likely be used by it when it is able to)
+ */
+
 public class ReliableSensor implements DistanceSensor {
 
 	@Override
