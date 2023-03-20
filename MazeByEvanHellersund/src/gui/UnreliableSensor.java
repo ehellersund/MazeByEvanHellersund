@@ -1,48 +1,18 @@
 package gui;
 
-import generation.CardinalDirection;
-import generation.Maze;
-import gui.Robot.Direction;
+/*Class: 
+ * 	UnreliableSensor
+ *Responsibilities:
+ *	Looks at maze to figure out how far away from a wall a sensor is
+ *	Passes this information to WallFollower so that it can navigate the maze
+ *	Also passes what direction it is looking, and how much energy it cost to use the sensor
+ *	Implements failing & repairing 
+ *Collaborators
+ *	Maze (uses it so that it can get the necessary info for distance from walls + "see" them)
+ *	WallFollower (it is its sensor)
+ */
 
-public class UnreliableSensor implements DistanceSensor {
-
-	@Override
-	public int distanceToObstacle(int[] currentPosition, CardinalDirection currentDirection, float[] powersupply)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setMaze(Maze maze) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setSensorDirection(Direction mountedDirection) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public float getEnergyConsumptionForSensing() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void startFailureAndRepairProcess(int meanTimeBetweenFailures, int meanTimeToRepair)
-			throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void stopFailureAndRepairProcess() throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
-
-	}
+public class UnreliableSensor extends ReliableSensor {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

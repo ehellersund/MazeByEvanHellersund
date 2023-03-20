@@ -14,7 +14,7 @@ import gui.Robot.Direction;
  *Collaborators
  *	Maze (uses it so that it can get the necessary info for distance from walls + "see" them)
  *	Wizard (used by it to confirm locations of walls)
- *	WallFollower (will likely be used by it when it is able to)
+ *	WallFollower (sort of, since this implements UnreliableSensor)
  */
 
 public class ReliableSensor implements DistanceSensor {
