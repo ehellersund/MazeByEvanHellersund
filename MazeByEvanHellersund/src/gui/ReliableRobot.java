@@ -2,6 +2,19 @@ package gui;
 
 import generation.CardinalDirection;
 
+/*Class: 
+ * 	ReliableRobot
+ *Responsibilities:
+ *	Get info from its controller (likely once)
+ *	Add up to four distance sensors 
+ *	Returns position in maze, as well as direction facing in maze
+ *	Has a battery level that changes with operations, can be adjusted & returned
+ *Collaborators
+ *	Control (robot's controller)
+ *	ReliableSensor (gets distance to wall in specific direction)
+ *	RobotDriver (drives/operates the robot)
+ */
+
 public class ReliableRobot implements Robot {
 
 	@Override
