@@ -44,6 +44,27 @@ public enum CardinalDirection {
 		}
 	}
 	/** 
+	 * Gives the direction that results from a 90 degree counter-clockwise rotation
+	 * applied to the current direction. 
+	 * @return direction after 90 degree counter-clockwise rotation
+	 * @author Evan Hellersund
+	 */
+	public CardinalDirection rotateCounterClockwise() {
+		switch(this) {
+		case North : 
+			return CardinalDirection.West ;
+		case East : 
+			return CardinalDirection.North ;
+		case South : 
+			return CardinalDirection.East ;
+		case West : 
+			return CardinalDirection.South ;
+		default:
+			throw new RuntimeException("Inconsistent enum type") ;
+		}
+	}
+	
+	/** 
 	 * Gives the opposite direction which is the same as applying a 180 degree
 	 * rotation. 
 	 * @return direction that is opposite to the current direction
