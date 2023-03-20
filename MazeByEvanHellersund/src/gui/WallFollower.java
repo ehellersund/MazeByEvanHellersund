@@ -14,6 +14,9 @@ import generation.Maze;
  *	RobotDriver (inherits from)
  *	Robot (drives it around, tells it what to do, etc.)
  *	UnreliableSensor (has to use this sensor to look around and tell where it is)
+ *
+ *@author Evan Hellersund
+ *
  */
 
 public class WallFollower implements RobotDriver {

@@ -13,6 +13,9 @@ import generation.CardinalDirection;
  *	Control (robot's controller)
  *	ReliableSensor (gets distance to wall in specific direction)
  *	Wizard/WallFollower (drives/operates the robot)
+ *
+ * @author Evan Hellersund
+ * 
  */
 
 public class ReliableRobot implements Robot {

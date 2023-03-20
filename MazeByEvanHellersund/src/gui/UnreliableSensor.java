@@ -10,6 +10,9 @@ package gui;
  *Collaborators
  *	Maze (uses it so that it can get the necessary info for distance from walls + "see" them)
  *	WallFollower (it is its sensor)
+ *
+ *@author Evan Hellersund
+ *
  */
 
 public class UnreliableSensor extends ReliableSensor {

@@ -14,6 +14,9 @@ import generation.Maze;
  *	Robot (operates this robot, drives it to exit)
  *	Maze (uses the info here to find the exit)
  *	ReliableSensor (confirm locations of walls)
+ *
+ *@author Evan Hellersund
+ *
  */
 
 public class Wizard implements RobotDriver {
