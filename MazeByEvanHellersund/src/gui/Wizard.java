@@ -7,6 +7,7 @@ import generation.Maze;
  *Responsibilities:
  *	Uses maze info to find the shortest way out of a maze
  *	Uses sensors to CONFIRM locations of walls
+ *	Tells robot where to go, how much battery its operations are taking
  *	Stops robot in the event that it drives it into a wall
  *Collaborators
  *	RobotDriver (inherits from)
