@@ -22,7 +22,7 @@ import gui.Robot.Direction;
 
 public class ReliableSensor implements DistanceSensor {
 	
-	Maze maze = null;
+	Maze useMaze = null;
 	Direction orientation = null;
 
 	@Override
@@ -31,15 +31,15 @@ public class ReliableSensor implements DistanceSensor {
 		int distance = 0;
 		int checkPos[] = currentPosition;
 		
-		if (maze == null) {
+		if (useMaze == null) {
 			throw new IllegalArgumentException("Tried to calculate distance for a null maze");
 		}
 		while (true) {
-			if (maze.isValidPosition(checkPos[0], checkPos[1]) == false) {
+			if (useMaze.isValidPosition(checkPos[0], checkPos[1]) == false) {
 				throw new IllegalArgumentException("Distance sensor somehow ended up outside maze"); }
-			if (maze.hasWall(checkPos[0], checkPos[1], currentDirection)) {
+			if (useMaze.hasWall(checkPos[0], checkPos[1], currentDirection)) {
 				return distance; }
-			if (checkPos == maze.getExitPosition()) { //distance = -1 will be used to indicate that the sensor is pointing to an exit
+			if (checkPos == useMaze.getExitPosition()) { //distance = -1 will be used to indicate that the sensor is pointing to an exit
 				distance = -1;
 				return distance; }
 			distance += 1;
@@ -62,13 +62,12 @@ public class ReliableSensor implements DistanceSensor {
 
 	@Override
 	public void setMaze(Maze maze) {
-		// maze = maze
-
+		useMaze = maze;
 	}
 
 	@Override
 	public void setSensorDirection(Direction mountedDirection) {
-		// orientation = mountedDirection
+		orientation = mountedDirection;
 
 	}
 
