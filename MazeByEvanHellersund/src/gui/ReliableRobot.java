@@ -1,8 +1,8 @@
 package gui;
 
 import java.awt.event.KeyEvent;
-
 import generation.CardinalDirection;
+import generation.Maze;
 
 /*Class: 
  * 	ReliableRobot
@@ -27,63 +27,55 @@ import generation.CardinalDirection;
  */
 
 public class ReliableRobot implements Robot {
-	/*
-	Control RobotController = new Control
-	float Battery = 3500
-	int Odometer = 0
-	boolean stopped = false
-	ReliableSensor FrontSensor = null
-	ReliableSensor LeftSensor = null
-	ReliableSensor RightSensor = null
-	ReliableSensor BackSensor = null
-	*/
+
+	Control RobotController = null;
+	float[] Battery = {3500};
+	int Odometer = 0;
+	boolean stopped = false;
+	ReliableSensor FrontSensor = null;
+	ReliableSensor LeftSensor = null;
+	ReliableSensor RightSensor = null;
+	ReliableSensor BackSensor = null;
 
 	@Override
-	public void setController(Control controller) {
-		/*
-		Control controller = new Control
-		if controller == null or controller.currentState != StatePlaying or controller.getMaze() == null
-			throw IllegalArgumentException
-		else
-			RobotController = controller
-		*/
-		
+	public void setController(Control controller) throws IllegalArgumentException {
+		if (controller == null || !(controller.currentState instanceof StatePlaying) || controller.getMaze() == null) {
+			throw new IllegalArgumentException("Unable to set controller, it might be null, wrong playstate, or maze does not exist");
+			}
+		else {
+			RobotController = controller;
+		}
 	}
 
 	@Override
 	public void addDistanceSensor(DistanceSensor sensor, Direction mountedDirection) {
-		/*
-		DistanceSensor sensor = new ReliableSensor()
-		sensor.setSensorDirection(mountedDirected)
-		*/
+		sensor = new ReliableSensor();
+		sensor.setSensorDirection(mountedDirection);
 	}
 
 	@Override
 	public int[] getCurrentPosition() throws Exception {
-		/*
-		return RobotController.getCurrentPosition()
-		*/
-		return null;
+		int position[] = RobotController.getCurrentPosition();
+		if (RobotController.getMaze().isValidPosition(position[0], position[1]) == false) {
+			throw new Exception("Position is invalid");
+		}
+		return position;
+
 	}
 
 	@Override
 	public CardinalDirection getCurrentDirection() {
-		/*
-		return controller.getCurrentDirection()
-		*/
-		return null;
+		return RobotController.getCurrentDirection();
 	}
 
 	@Override
 	public float getBatteryLevel() {
-		// return Battery
-		return 0;
+		return Battery[0];
 	}
 
 	@Override
 	public void setBatteryLevel(float level) {
-		// Battery = level
-
+		Battery[0] = level;
 	}
 
 	@Override
@@ -98,174 +90,161 @@ public class ReliableRobot implements Robot {
 
 	@Override
 	public int getOdometerReading() {
-		// return Odometer
-		return 0;
+		return Odometer;
 	}
 
 	@Override
 	public void resetOdometer() {
-		// Odometer = 0
+		Odometer = 0;
 	}
 
 	@Override
 	public void rotate(Turn turn) {
-		/*
-		switch(turn)
+		switch(turn) {
 		case LEFT:
-			Battery -= 3
-			if hasStopped() == true:
-				Implement game loss
-			else
-				RobotController.robotTurn(LEFT)
-				break
+			Battery[0] -= 3;
+			if (hasStopped() == true) {
+				loser();
+			}
+			else {
+				RobotController.robotTurn(Turn.LEFT);
+				break;
+			}
 		case RIGHT:
-			Battery -= 3
-			if hasStopped() == true:
-				Implement game loss
-			else
-				RobotController.robotTurn(RIGHT)
-				break
+			Battery[0] -= 3;
+			if (hasStopped() == true) {
+				loser();
+			}
+			else {
+				RobotController.robotTurn(Turn.RIGHT);
+				break;
+			}
 		case AROUND:
-			Battery -= 3
-			if hasStopped() == true:
-				Implement game loss
-			else
-				RobotController.robotTurn(RIGHT)
-				Battery -= 3
-				if hasStopped() == true:
-					print("Could only rotate 90 degrees")
-					Implement game loss
-				else
-					RobotController.robotTurn(RIGHT)
-					break
-		*/
-
+			Battery[0] -= 3;
+			if (hasStopped() == true) {
+				loser();
+			}
+			else {
+				RobotController.robotTurn(Turn.RIGHT);
+				Battery[0] -= 3;
+				if (hasStopped() == true) {
+					System.out.println("Could only rotate 90 degrees");
+					loser();
+				}
+				else {
+					RobotController.robotTurn(Turn.RIGHT);
+					break;
+				}
+			}
+		}
 	}
 
 	@Override
-	public void move(int distance) {
-		/*
-		int stepsLeft = distance
-		int wallDist = this.distanceToObstacle(FORWARD)
-		Maze maze = RobotController.getMaze()
+	public void move(int distance) throws Exception, UnsupportedOperationException {
+		int stepsLeft = distance;
+		int wallDist = distanceToObstacle(Direction.FORWARD);
 		
-		while stepsLeft > 0
-			wallDist -= 1
-			if wallDist < 0
-				stopped = true
-				Implement game loss
-			else
-				RobotController.robotMove()
-				this.Odometer += 1
-				Battery -= 6
-				if hasStopped() == true:
-					Implement game loss
-				stepsLeft -= 1
-		*/
+		while (stepsLeft > 0) {
+			wallDist -= 1;
+			if (wallDist < 0) {
+				stopped = true;
+				loser();
+				}
+			else {
+				RobotController.robotMove();
+				Odometer += 1;
+				Battery[0] -= 6;
+				if (hasStopped() == true) {
+					loser();
+				}
+				stepsLeft -= 1;
+			}
+		}
 	}
 
 	@Override
 	public void jump() {
-		/*
-		Battery -= 40
-		RobotController.robotJump()
-		this.Odometer += 1
-		if hasStopped == true:
-			Implement game loss
-		*/
-		// TODO Auto-generated method stub
-
+		Battery[0] -= 40;
+		RobotController.robotJump();
+		this.Odometer += 1;
+		if (stopped == true) {
+			loser();
+		}
 	}
 
 	@Override
 	public boolean isAtExit() {
-		/*
-		exit = RobotController.getMaze().getExitPosition()
-		if this.getCurrentPosition == exit
-			return true
-		return false
-		*/
-		return false;
+		int exit[] = RobotController.getMaze().getExitPosition();
+		return ((RobotController.getCurrentPosition()[0] == exit[0] && RobotController.getCurrentPosition()[1] == exit[1]) ? true : false);
 	}
 
 	@Override
 	public boolean isInsideRoom() {
-		/*
-		return RobotController.getMaze().isInRoom(this.getCurrentPosition)
-		*/
-		return false;
+		return RobotController.getMaze().isInRoom(RobotController.getCurrentPosition()[0], RobotController.getCurrentPosition()[1]);
 	}
 
 	@Override
 	public boolean hasStopped() {
-		/*
-		if battery <= 0
-			stopped = true
-		return stopped
-		*/
-		return false;
+		if (Battery[0] <= 0) {
+			stopped = true; }
+		return stopped;
 	}
 
 	@Override
-	public int distanceToObstacle(Direction direction) throws UnsupportedOperationException {
-		/*
-		switch(direction)
+	public int distanceToObstacle(Direction direction) throws Exception, UnsupportedOperationException {
+		switch(direction) {
 		case FORWARD:
-			if FrontSensor == null
-				throw new UnsupportedOperationException("Sensor does not exist in FORWARD direction");
-			else
-				return FrontSensor.distanceToObstacle(this.getCurrentPosition(), direction, Battery)
+			if (FrontSensor == null) {
+				throw new UnsupportedOperationException("Sensor does not exist in FORWARD direction"); }
+			else {
+				return FrontSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery); }
 		case LEFT:
-			if LeftSensor == null
-				throw new UnsupportedOperationException("Sensor does not exist in LEFT direction");
-			else
-				return LeftSensor.distanceToObstacle(this.getCurrentPosition(), direction, Battery)
+			if (LeftSensor == null) {
+				throw new UnsupportedOperationException("Sensor does not exist in LEFT direction"); }
+			else {
+				return LeftSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery); }
 		case RIGHT:
-			if RightSensor == null
-				throw new UnsupportedOperationException("Sensor does not exist in RIGHT direction");
-			else
-				return RightSensor.distanceToObstacle(this.getCurrentPosition(), direction, Battery)
+			if (RightSensor == null) {
+				throw new UnsupportedOperationException("Sensor does not exist in RIGHT direction"); }
+			else {
+				return RightSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery); }
 		case BACKWARD:
-			if BackSensor == null
-				throw new UnsupportedOperationException("Sensor does not exist in BACKWARD direction");
-			else
-				return BackSensor.distanceToObstacle(this.getCurrentPosition(), direction, Battery)
-		*/
-		return 0;
+			if (BackSensor == null) {
+				throw new UnsupportedOperationException("Sensor does not exist in BACKWARD direction"); }
+			else {
+				return BackSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery); }
+		}
+		return -2; //Should not happen
 	}
 
 	@Override
-	public boolean canSeeThroughTheExitIntoEternity(Direction direction) throws UnsupportedOperationException {
-		/*
-		Maze maze = RobotController.getMaze()
-		
-		switch(direction)
+	public boolean canSeeThroughTheExitIntoEternity(Direction direction) throws Exception, UnsupportedOperationException {
+		switch(direction) {
 		case FORWARD:
-			if FrontSensor == null
-				throw new UnsupportedOperationException("Sensor does not exist in FORWARD direction");
-			if FrontSensor.distanceToObstacle(this.getCurrentPosition(), direction, Battery) == -1
-				return true
-			break
+			if (FrontSensor == null) {
+				throw new UnsupportedOperationException("Sensor does not exist in FORWARD direction"); }
+			if (FrontSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery) == -1) {
+				return true; }
+			break;
 		case LEFT:
-			if LeftSensor == null
-				throw new UnsupportedOperationException("Sensor does not exist in LEFT direction");
-			if LeftSensor.distanceToObstacle(this.getCurrentPosition(), direction, Battery) == -1
-				return true
-			break
+			if (LeftSensor == null) {
+				throw new UnsupportedOperationException("Sensor does not exist in LEFT direction"); }
+			if (LeftSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery) == -1) {
+				return true; }
+			break;
 		case RIGHT:
-			if RightSensor == null
-				throw new UnsupportedOperationException("Sensor does not exist in RIGHT direction");
-			if RightSensor.distanceToObstacle(this.getCurrentPosition(), direction, Battery) == -1
-				return true
-			break
+			if (RightSensor == null) {
+				throw new UnsupportedOperationException("Sensor does not exist in RIGHT direction"); }
+			if (RightSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery) == -1) {
+				return true; }
+			break;
 		case BACKWARD:
-			if BackSensor == null
-				throw new UnsupportedOperationException("Sensor does not exist in BACKWARD direction");
-			if BackSensor.distanceToObstacle(this.getCurrentPosition(), direction, Battery) == -1
-				return true
-			break
-		return false
-		*/
+			if (BackSensor == null) {
+				throw new UnsupportedOperationException("Sensor does not exist in BACKWARD direction"); }
+			if (BackSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery) == -1) {
+				return true; }
+			break;
+		}
 		return false;
 	}
 
@@ -280,7 +259,27 @@ public class ReliableRobot implements Robot {
 		throw new UnsupportedOperationException("Not supported for ReliableRobot");
 	}
 	
+	//Helper method that converts the requested direction in relation to the robot into a cardinal direction
+	public CardinalDirection dToCD(Direction direction) {
+		CardinalDirection facing = getCurrentDirection();
+		switch(direction) {
+		case FORWARD:
+			return facing;
+		case LEFT:
+			facing = facing.rotateCounterClockwise();
+			break;
+		case RIGHT:
+			facing = facing.rotateClockwise();
+			break;
+		case BACKWARD:
+			facing = facing.rotateClockwise().rotateClockwise();
+			break;
+		}
+		return facing;
+	}
+	
+	//Method that will be called to implement game loss
 	public void loser() {
-		//Will be used in game loss implementation
+		System.out.println("Game lost"); 
 	}
 }

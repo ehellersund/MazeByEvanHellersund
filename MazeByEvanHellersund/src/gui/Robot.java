@@ -197,7 +197,7 @@ public interface Robot {
 	 * @param distance is the number of cells to move in the robot's current forward direction 
 	 * @throws IllegalArgumentException if distance not positive
 	 */
-	void move(int distance);
+	void move(int distance) throws Exception, UnsupportedOperationException;
 	/**
 	 * Makes robot move in a forward direction even if there is a wall
 	 * in front of it. In this sense, the robot jumps over the wall
@@ -251,8 +251,9 @@ public interface Robot {
 	 * in a straight line of sight, Integer.MAX_VALUE otherwise
 	 * @throws UnsupportedOperationException if robot has no sensor in this direction
 	 * or the sensor exists but is currently not operational
+	 * @throws  
 	 */
-	int distanceToObstacle(Direction direction) throws UnsupportedOperationException ;
+	int distanceToObstacle(Direction direction) throws Exception, UnsupportedOperationException;
 	/**
 	 * Tells if a sensor can identify the exit in the given direction relative to 
 	 * the robot's current forward direction from the current position.
@@ -263,7 +264,7 @@ public interface Robot {
 	 * @throws UnsupportedOperationException if robot has no sensor in this direction
 	 * or the sensor exists but is currently not operational
 	 */
-	boolean canSeeThroughTheExitIntoEternity(Direction direction) throws UnsupportedOperationException ;
+	boolean canSeeThroughTheExitIntoEternity(Direction direction) throws Exception, UnsupportedOperationException ;
 
 	/////// OPTIONAL METHODS /////////////////////////////////////////////
 	////// The following 2 methods will be fully implemented in 
