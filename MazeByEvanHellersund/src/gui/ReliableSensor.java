@@ -21,48 +21,72 @@ import gui.Robot.Direction;
  */
 
 public class ReliableSensor implements DistanceSensor {
+	
+	//Maze maze = null
+	//Direction orientation = null
 
 	@Override
 	public int distanceToObstacle(int[] currentPosition, CardinalDirection currentDirection, float[] powersupply)
 			throws Exception {
-		// TODO Auto-generated method stub
+		/*
+		int distance = 0
+		int checkPos[] = currentPosition
+		
+		if maze == null
+			throw new IllegalArgumentException("Tried to calculate distance for a null maze");
+		
+		while true
+			if maze.isValidPosition(checkPos[0], checkPos[1]) == false
+				throw new IllegalArgumentException("Distance sensor somehow ended up outside maze");
+			if maze.hasWall(checkPos[0], checkPos[1], currentDirection)
+				return distance
+			if checkPos = maze.getExitPosition() \\distance = -1 will be used to indicate that the sensor is pointing to an exit
+				distance = -1
+				return distance
+			distance +=1
+			switch(currentDirection)
+			case North : 
+				checkPos[1] -= 1
+				break
+			case East : 
+				checkPos[0] += 1
+				break
+			case South : 
+				checkPos[1] += 1
+				break
+			case West : 
+				checkPos[0] -= 1
+				break
+
+		*/
 		return 0;
 	}
 
 	@Override
 	public void setMaze(Maze maze) {
-		// TODO Auto-generated method stub
+		// maze = maze
 
 	}
 
 	@Override
 	public void setSensorDirection(Direction mountedDirection) {
-		// TODO Auto-generated method stub
+		// orientation = mountedDirection
 
 	}
 
 	@Override
 	public float getEnergyConsumptionForSensing() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 3;
 	}
 
 	@Override
 	public void startFailureAndRepairProcess(int meanTimeBetweenFailures, int meanTimeToRepair)
 			throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException("Not supported for ReliableSensor");
 	}
 
 	@Override
 	public void stopFailureAndRepairProcess() throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException("Not supported for ReliableSensor");
 	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

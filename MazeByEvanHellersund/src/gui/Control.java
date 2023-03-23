@@ -13,6 +13,7 @@ import generation.*;
 
 import gui.ColorTheme.ColorThemeSelection;
 import gui.Constants.UserInput;
+import gui.Robot.Turn;
 
 /**
  * Class handles the user interaction through the different stages of the game.
@@ -276,10 +277,36 @@ public class Control extends JFrame implements KeyListener {
     public CardinalDirection getCurrentDirection() {
         return ((StatePlaying)currentState).getCurrentDirection();
     }
+    
+    //New method created to allow the robot to move by passing in "user input"
+	public void robotMove() {
+		UserInput userInput = UserInput.UP;
+		handleKeyboardInput(userInput, 0);
+	}
+    
+	//New method created to allow the robot to turn by passing in "user input"
+	public void robotTurn(Turn direction) {
+		UserInput left = UserInput.LEFT;
+		UserInput right = UserInput.RIGHT;
+		switch (direction) {
+		case LEFT:
+			handleKeyboardInput(left, 0);
+			break;
+		case RIGHT:
+			handleKeyboardInput(right, 0);
+			break;
+		case AROUND:
+			throw new UnsupportedOperationException("Invalid turn passed to robot");
+		}
+	}
+	
+	//New method created to allow the robot to jump by passing in "user input"
+	public void robotJump() {
+		UserInput userInput = UserInput.JUMP;
+		handleKeyboardInput(userInput, 0);
+	}
 	
 	////////////// end of P3 specific additions //////////////////
-
-
 
 	private void handleCommandLineInput(String[] args) {
 		
@@ -344,6 +371,7 @@ public class Control extends JFrame implements KeyListener {
 	 * Translate keyboard input to the corresponding operation for 
 	 * the handleKeyboardInput method.
 	 */
+	
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		int key = arg0.getKeyChar();
@@ -446,6 +474,7 @@ public class Control extends JFrame implements KeyListener {
 		// userInput encodes what action should be triggered
 		// value is only used if userInput == Start
 		// value indicates the user selected size of the maze
+		//System.out.println(value);        //Was used to check handling of user input
 		handleKeyboardInput(userInput, value);
 	}
 	@Override

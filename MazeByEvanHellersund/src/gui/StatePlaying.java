@@ -272,6 +272,9 @@ public class StatePlaying implements State {
         case UP: // move forward
         	LOGGER.fine("Move 1 step forward");
             walk(1);
+            // Temp code used to check position & direction
+            //System.out.println(getCurrentDirection());
+            //System.out.println("[" + getCurrentPosition()[0] + ", " + getCurrentPosition()[1] + "]");
             // check termination, did we leave the maze?
             if (isOutside(px,py)) {
             	// TODO: provide actual path length
