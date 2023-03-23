@@ -278,6 +278,11 @@ public class ReliableRobot implements Robot {
 		return facing;
 	}
 	
+	//Method that returns the robot's maze, used by Wizard
+	public Maze giveMaze() {
+		return RobotController.getMaze();
+	}
+	
 	//Method that will be called to implement game loss
 	public void loser() {
 		System.out.println("Game lost"); 

@@ -1,6 +1,9 @@
 package gui;
 
+import generation.CardinalDirection;
 import generation.Maze;
+import gui.Robot.Direction;
+import gui.Robot.Turn;
 
 /*Class: 
  * 	Wizard
@@ -20,131 +23,126 @@ import generation.Maze;
  */
 
 public class Wizard implements RobotDriver {
-	/*
-	ReliableRobot robot 
-	Maze cheatMaze
-	*/
+	ReliableRobot robot = null;
+	Maze cheatMaze = null;
 
 	@Override
 	public void setRobot(Robot r) {
-		/*
-		Robot r = new ReliableRobot
+		r = new ReliableRobot();
 		
-		ReliableSensor front = new ReliableSensor
-		front.setSensorDirection(FORWARD)
-		r.FrontSensor = front
+		ReliableSensor front = new ReliableSensor();
+		front.setSensorDirection(Direction.FORWARD);
+		r.addDistanceSensor(front, Direction.FORWARD);
 		
-		ReliableSensor left = new ReliableSensor
-		left.setSensorDirection(LEFT)
-		r.LeftSensor = left
+		ReliableSensor left = new ReliableSensor();
+		left.setSensorDirection(Direction.LEFT);
+		r.addDistanceSensor(left, Direction.LEFT);
 		
-		ReliableSensor right = new ReliableSensor
-		right.setSensorDirection(RIGHT)
-		r.RightSensor = right
+		ReliableSensor right = new ReliableSensor();
+		right.setSensorDirection(Direction.RIGHT);
+		r.addDistanceSensor(right, Direction.RIGHT);
 		
-		ReliableSensor back = new ReliableSensor
-		back.setSensorDirection(BACKWARD)
-		r.BackSensor = back
+		ReliableSensor back = new ReliableSensor();
+		back.setSensorDirection(Direction.BACKWARD);
+		r.addDistanceSensor(back, Direction.BACKWARD);
 		
-		robot = r
-		*/
+		robot = (ReliableRobot) r;
 	}
 
 	@Override
 	public void setMaze(Maze maze) {
-		/*
-		cheatMaze = robot.RobotController.getMaze()
-		*/
+		cheatMaze = robot.giveMaze();
 	}
 
 	@Override
 	public boolean drive2Exit() throws Exception {
-		/*
-		int distance = cheatMaze.getDistanceToExit()
+		int distance = cheatMaze.getDistanceToExit(robot.getCurrentPosition()[0], robot.getCurrentPosition()[1]);
 		
-		while distance > 0 
-			this.drive1Step2Exit()
-			distance -= 1
-		*/
-		return false;
+		while (distance > 0) { 
+			this.drive1Step2Exit();
+			distance -= 1; }
+		return (distance == 0 && cheatMaze.getExitPosition() == robot.getCurrentPosition()) ? true : false;
 	}
 
 	@Override
 	public boolean drive1Step2Exit() throws Exception {
-		/*
-		int start[] = robot.getCurrentPosition()
-		int dest[] = cheatMaze.getNeighborCloserToExit(pos[0], pos[1])
-		CardinalDirection dir = robot.getCurrentDirection()
+		int start[] = robot.getCurrentPosition();
+		int dest[] = cheatMaze.getNeighborCloserToExit(start[0], start[1]);
+		CardinalDirection dir = robot.getCurrentDirection();
 		
-		if start[0] > dest[0]	//West
-			switch(dir)
-			case NORTH:
-				robot.rotate(LEFT)
-				robot.move(1)
-			case EAST:
-				robot.rotate(AROUND)
-				robot.move(1)
-			case WEST:
-				robot.move(1)
-			case SOUTH:
-				robot.rotate(RIGHT)
-				robot.move(1)				
-		if start[0] < dest[0]	//East
-			switch(dir)
-			case NORTH:
-				robot.rotate(RIGHT)
-				robot.move(1)
-			case EAST:
-				robot.move(1)
-			case WEST:
-				robot.rotate(AROUND)
-				robot.move(1)
-			case SOUTH:
-				robot.rotate(LEFT)
-				robot.move(1)	
-		if start[1] > dest[1]	//North
-			switch(dir)
-			case NORTH:
-				robot.move(1)
-			case EAST:
-				robot.rotate(RIGHT)
-				robot.move(1)
-			case WEST:
-				robot.rotate(LEFT)
-				robot.move(1)
-			case SOUTH:
-				robot.rotate(AROUND)
-				robot.move(1)	
-		if start[1] < dest[1]	//South
-			switch(dir)
-			case NORTH:
-				robot.rotate(AROUND)
-				robot.move(1)
-			case EAST:
-				robot.rotate(RIGHT)
-				robot.move(1)
-			case WEST:
-				robot.rotate(LEFT)
-				robot.move(1)
-			case SOUTH:
-				robot.move(1)	
-		*/
-		return false;
+		if (start == cheatMaze.getExitPosition()) {
+			return false;
+		}
+		if (start[0] > dest[0]) {	//West
+			switch(dir) {
+			case North:
+				robot.rotate(Turn.LEFT);
+				robot.move(1);
+			case East:
+				robot.rotate(Turn.AROUND);
+				robot.move(1);
+			case West:
+				robot.move(1);
+			case South:
+				robot.rotate(Turn.RIGHT);
+				robot.move(1);
+			}
+		}
+		if (start[0] < dest[0]) {	//East
+			switch(dir) {
+			case North:
+				robot.rotate(Turn.RIGHT);
+				robot.move(1);
+			case East:
+				robot.move(1);
+			case West:
+				robot.rotate(Turn.AROUND);
+				robot.move(1);
+			case South:
+				robot.rotate(Turn.LEFT);
+				robot.move(1); 
+			}
+		}
+		if (start[1] > dest[1]) {	//North
+			switch(dir) {
+			case North:
+				robot.move(1);
+			case East:
+				robot.rotate(Turn.RIGHT);
+				robot.move(1);
+			case West:
+				robot.rotate(Turn.LEFT);
+				robot.move(1);
+			case South:
+				robot.rotate(Turn.AROUND);
+				robot.move(1);
+			}
+		}
+		if (start[1] < dest[1]) {	//South
+			switch(dir) {
+			case North:
+				robot.rotate(Turn.AROUND);
+				robot.move(1);
+			case East:
+				robot.rotate(Turn.RIGHT);
+				robot.move(1);
+			case West:
+				robot.rotate(Turn.LEFT);
+				robot.move(1);
+			case South:
+				robot.move(1);
+			}
+		}
+		return true;
 	}
 
 	@Override
 	public float getEnergyConsumption() {
-		/*
-		return 3500 - robot.Battery
-		*/
-		return 0;
+		return 3500 - robot.Battery[0];
 	}
 
 	@Override
 	public int getPathLength() {
-		/*
-		return robot.Odometer
-		*/
-		return 0;
+		return robot.Odometer;
 	}
 }
