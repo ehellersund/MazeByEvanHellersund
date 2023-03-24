@@ -60,7 +60,7 @@ public class Wizard implements RobotDriver {
 	public boolean drive2Exit() throws Exception {
 		int distance = cheatMaze.getDistanceToExit(robot.getCurrentPosition()[0], robot.getCurrentPosition()[1]);
 		
-		while (distance > 0) { 
+		while (distance > 0) {
 			this.drive1Step2Exit();
 			distance -= 1; }
 			//Thread.sleep(1000);  //Delay to robot's movements

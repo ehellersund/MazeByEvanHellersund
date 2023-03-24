@@ -35,6 +35,10 @@ public class ReliableSensor implements DistanceSensor {
 			throw new IllegalArgumentException("Tried to calculate distance for a null maze"); 
 		}
 		
+		if (powersupply[0] - 6 <= 0) { //Not enough power
+			throw new Exception("Not enough power for operation");
+		}
+		
 		while (true) {
 			if (checkPos[0] == useMaze.getExitPosition()[0] && checkPos[1] == useMaze.getExitPosition()[1]) {
 				return Integer.MAX_VALUE;

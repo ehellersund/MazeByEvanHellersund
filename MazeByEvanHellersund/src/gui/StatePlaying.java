@@ -210,13 +210,12 @@ public class StatePlaying implements State {
                 */
 
         		try {
-        			
         			wizard.drive2Exit();
-					
 				} catch (Exception e) {
 					System.out.println("Drive2Exit Failed Somehow");
 					e.printStackTrace();
 				}
+        		System.out.println(bot.getBatteryLevel());
         	}
     	}
     }
