@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.event.KeyEvent;
 import generation.CardinalDirection;
 import generation.Maze;
 
@@ -237,25 +236,25 @@ public class ReliableRobot implements Robot {
 		case FORWARD:
 			if (FrontSensor == null) {
 				throw new UnsupportedOperationException("Sensor does not exist in FORWARD direction"); }
-			if (FrontSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery) == -1) {
+			if (FrontSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery) == Integer.MAX_VALUE) {
 				return true; }
 			break;
 		case LEFT:
 			if (LeftSensor == null) {
 				throw new UnsupportedOperationException("Sensor does not exist in LEFT direction"); }
-			if (LeftSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery) == -1) {
+			if (LeftSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery) == Integer.MAX_VALUE) {
 				return true; }
 			break;
 		case RIGHT:
 			if (RightSensor == null) {
 				throw new UnsupportedOperationException("Sensor does not exist in RIGHT direction"); }
-			if (RightSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery) == -1) {
+			if (RightSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery) == Integer.MAX_VALUE) {
 				return true; }
 			break;
 		case BACKWARD:
 			if (BackSensor == null) {
 				throw new UnsupportedOperationException("Sensor does not exist in BACKWARD direction"); }
-			if (BackSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery) == -1) {
+			if (BackSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery) == Integer.MAX_VALUE) {
 				return true; }
 			break;
 		}

@@ -36,15 +36,14 @@ public class ReliableSensor implements DistanceSensor {
 		}
 		
 		while (true) {
-			if (useMaze.getExitPosition() == checkPos) {
-				return distance;
+			if (checkPos[0] == useMaze.getExitPosition()[0] && checkPos[1] == useMaze.getExitPosition()[1]) {
+				return Integer.MAX_VALUE;
 			}
+			if (useMaze.isValidPosition(checkPos[0], checkPos[1]) == false) {
+				throw new IllegalArgumentException("Distance sensor somehow ended up outside maze without passing the exit"); }
 			
 			if (useMaze.hasWall(checkPos[0], checkPos[1], currentDirection)) {
 				return distance; }
-
-			if (useMaze.isValidPosition(checkPos[0], checkPos[1]) == false) {
-				throw new IllegalArgumentException("Distance sensor somehow ended up outside maze without passing the exit"); }
 			
 			distance += 1;
 			switch(currentDirection) {

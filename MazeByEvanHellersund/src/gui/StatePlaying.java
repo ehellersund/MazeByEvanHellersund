@@ -208,7 +208,7 @@ public class StatePlaying implements State {
                 showSolution = !showSolution;       
                 draw(cd.angle(), 0) ;
                 */
-        		
+
         		try {
         			
         			wizard.drive2Exit();
