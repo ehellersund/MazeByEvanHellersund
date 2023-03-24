@@ -23,35 +23,37 @@ import gui.Robot.Turn;
  */
 
 public class Wizard implements RobotDriver {
-	ReliableRobot robot = null;
+	Robot robot;
 	Maze cheatMaze = null;
 
 	@Override
 	public void setRobot(Robot r) {
-		r = new ReliableRobot();
-		
 		ReliableSensor front = new ReliableSensor();
 		front.setSensorDirection(Direction.FORWARD);
+		front.setMaze(cheatMaze);
 		r.addDistanceSensor(front, Direction.FORWARD);
 		
 		ReliableSensor left = new ReliableSensor();
 		left.setSensorDirection(Direction.LEFT);
+		left.setMaze(cheatMaze);
 		r.addDistanceSensor(left, Direction.LEFT);
 		
 		ReliableSensor right = new ReliableSensor();
 		right.setSensorDirection(Direction.RIGHT);
+		right.setMaze(cheatMaze);
 		r.addDistanceSensor(right, Direction.RIGHT);
 		
 		ReliableSensor back = new ReliableSensor();
 		back.setSensorDirection(Direction.BACKWARD);
+		back.setMaze(cheatMaze);
 		r.addDistanceSensor(back, Direction.BACKWARD);
 		
-		robot = (ReliableRobot) r;
+		robot = r;
 	}
 
 	@Override
 	public void setMaze(Maze maze) {
-		cheatMaze = robot.giveMaze();
+		cheatMaze = maze;
 	}
 
 	@Override
@@ -78,14 +80,18 @@ public class Wizard implements RobotDriver {
 			case North:
 				robot.rotate(Turn.LEFT);
 				robot.move(1);
+				break;
 			case East:
 				robot.rotate(Turn.AROUND);
 				robot.move(1);
+				break;
 			case West:
 				robot.move(1);
+				break;
 			case South:
 				robot.rotate(Turn.RIGHT);
 				robot.move(1);
+				break;
 			}
 		}
 		if (start[0] < dest[0]) {	//East
@@ -93,29 +99,37 @@ public class Wizard implements RobotDriver {
 			case North:
 				robot.rotate(Turn.RIGHT);
 				robot.move(1);
+				break;
 			case East:
 				robot.move(1);
+				break;
 			case West:
 				robot.rotate(Turn.AROUND);
 				robot.move(1);
+				break;
 			case South:
 				robot.rotate(Turn.LEFT);
 				robot.move(1); 
+				break;
 			}
 		}
 		if (start[1] > dest[1]) {	//North
 			switch(dir) {
 			case North:
 				robot.move(1);
+				break;
 			case East:
 				robot.rotate(Turn.RIGHT);
 				robot.move(1);
+				break;
 			case West:
 				robot.rotate(Turn.LEFT);
 				robot.move(1);
+				break;
 			case South:
 				robot.rotate(Turn.AROUND);
 				robot.move(1);
+				break;
 			}
 		}
 		if (start[1] < dest[1]) {	//South
@@ -123,14 +137,18 @@ public class Wizard implements RobotDriver {
 			case North:
 				robot.rotate(Turn.AROUND);
 				robot.move(1);
+				break;
 			case East:
 				robot.rotate(Turn.RIGHT);
 				robot.move(1);
+				break;
 			case West:
 				robot.rotate(Turn.LEFT);
 				robot.move(1);
+				break;
 			case South:
 				robot.move(1);
+				break;
 			}
 		}
 		return true;
@@ -138,11 +156,11 @@ public class Wizard implements RobotDriver {
 
 	@Override
 	public float getEnergyConsumption() {
-		return 3500 - robot.Battery[0];
+		return 3500 - robot.getBatteryLevel();
 	}
 
 	@Override
 	public int getPathLength() {
-		return robot.Odometer;
+		return robot.getOdometerReading();
 	}
 }

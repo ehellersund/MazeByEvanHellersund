@@ -8,6 +8,7 @@ import generation.Floorplan;
 import generation.Maze;
 import generation.MazeFactory;
 import gui.Constants.UserInput;
+import gui.RobotDriver.Driver;
 
 /**
  * Class handles the user interaction
@@ -58,6 +59,8 @@ public class StateGenerating extends DefaultOrder implements State {
      * is the maze generating state.
      */
     Control control;
+    
+    Driver drive;
     
     /** 
      * The filename for a file that stores a maze.
@@ -259,6 +262,7 @@ public class StateGenerating extends DefaultOrder implements State {
         // update the context class with the new state
         // and hand over control to the new state
         control.setState(currentState);
+        currentState.setDriver(drive);
         currentState.start(control, panel);
     }
     /**
@@ -299,7 +303,10 @@ public class StateGenerating extends DefaultOrder implements State {
         // update the screen with the buffer graphics
         panel.update() ;
     }
-
+    
+    public void setDriver(Driver driver) {
+    	this.drive = driver;
+    }
 }
 
 

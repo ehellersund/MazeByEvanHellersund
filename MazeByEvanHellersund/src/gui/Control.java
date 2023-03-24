@@ -172,8 +172,9 @@ public class Control extends JFrame implements KeyListener {
     /**
      * Starts the controller and begins the game 
      * with the title screen.
+     * @throws Exception 
      */
-    public void start() { 
+    public void start() throws Exception { 
 		add(panel) ;
 		// Control digests keyboard input, need to add it to the JFrame to receive inputs that feeds keyboard input into the controller
 		addKeyListener(this) ;
@@ -336,6 +337,14 @@ public class Control extends JFrame implements KeyListener {
 	    case "Boruvka":
 	    	msg = "Command line input detected: generating random maze with Boruvka's algorithm.";
 	        ((StateTitle)currentState).setBuilder(Order.Builder.Boruvka);
+	    	break;
+	    case "Wizard":
+	    	msg = "Triggering automated playing mode Wizard for the game";
+	    	((StateTitle)currentState).setDriver(RobotDriver.Driver.Wizard);
+	    	break;
+	    case "WallFollower":
+	    	msg = "Triggering automated playing mode WallFollower for the game";
+	    	((StateTitle)currentState).setDriver(RobotDriver.Driver.WallFollower);
 	    	break;
 	    default: // assume this is a filename
 	    	File f = new File(parameter) ;
@@ -504,8 +513,9 @@ public class Control extends JFrame implements KeyListener {
 	 * generation algorithm, currently supported is "Prim".
 	 * @param args is optional, first string can be a fixed constant like Prim or
 	 * the name of a file that stores a maze in XML format
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// some general configurations
 		// ColorTheme offers different variants, pick one
 		ColorTheme.setColorTheme(ColorThemeSelection.ADVANCED);

@@ -14,6 +14,10 @@ import generation.Maze;
  */
 public interface RobotDriver {
 	
+	
+	//List of drivers for assigning driver
+	enum Driver { Wizard, WallFollower };
+	
 	/**
 	 * Assigns a robot platform to the driver. 
 	 * The driver uses a robot to perform, this method provides it with this necessary information.

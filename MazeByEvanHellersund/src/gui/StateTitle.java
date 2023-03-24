@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import generation.Order;
 import generation.Order.Builder;
 import gui.Constants.UserInput;
+import gui.RobotDriver.Driver;
 
 /**
  * Class handles the user interaction
@@ -104,6 +105,9 @@ public class StateTitle implements State {
      * over again if other parameters stay the same as well.
      * This behavior is useful during development.
      */
+    
+    Driver drive;
+    
     public StateTitle() {
     	// initialization of some fields is delayed and done in start method
     	view = null; // initialized in start method
@@ -147,6 +151,10 @@ public class StateTitle implements State {
 
     public void setBuilder(Builder builder) {
         this.builder = builder; 
+    }
+    
+    public void setDriver(Driver driver) {
+    	this.drive = driver;
     }
     /**
      * The method provides an appropriate response to user keyboard input. 
@@ -201,6 +209,8 @@ public class StateTitle implements State {
         nextState.setBuilder(builder); 
         nextState.setPerfect(control.isPerfect());
         nextState.setSkillLevel(skillLevel);
+        nextState.setDriver(drive);
+        
         if (!control.isDeterministic()) {
         	//LOGGER.severe("Assignment: implement code such that a repeated generation creates different mazes! Program stops!");
 			//System.exit(0) ;

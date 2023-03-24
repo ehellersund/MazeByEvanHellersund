@@ -17,7 +17,7 @@ public interface State {
 	 * This is polymorphism in action.
 	 * 
 	 * @param control is a reference to the current controller
-	 * @param panel is the panel to draw graphics on
+	 * @param panel is the panel to draw graphics on 
 	 */
     void start(Control control, MazePanel panel);
     /**

@@ -32,10 +32,10 @@ public class ReliableRobot implements Robot {
 	float[] Battery = {3500};
 	int Odometer = 0;
 	boolean stopped = false;
-	ReliableSensor FrontSensor = null;
-	ReliableSensor LeftSensor = null;
-	ReliableSensor RightSensor = null;
-	ReliableSensor BackSensor = null;
+	DistanceSensor FrontSensor = null;
+	DistanceSensor LeftSensor = null;
+	DistanceSensor RightSensor = null;
+	DistanceSensor BackSensor = null;
 
 	@Override
 	public void setController(Control controller) throws IllegalArgumentException {
@@ -49,8 +49,17 @@ public class ReliableRobot implements Robot {
 
 	@Override
 	public void addDistanceSensor(DistanceSensor sensor, Direction mountedDirection) {
-		sensor = new ReliableSensor();
 		sensor.setSensorDirection(mountedDirection);
+		switch(mountedDirection) {
+		case FORWARD:
+			FrontSensor = sensor;
+		case LEFT:
+			LeftSensor = sensor;
+		case RIGHT:
+			RightSensor = sensor;
+		case BACKWARD:
+			BackSensor = sensor;
+		}
 	}
 
 	@Override
@@ -148,6 +157,7 @@ public class ReliableRobot implements Robot {
 			wallDist -= 1;
 			if (wallDist < 0) {
 				stopped = true;
+				stepsLeft = 0;
 				loser();
 				}
 			else {

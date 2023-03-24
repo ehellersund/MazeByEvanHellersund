@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import generation.CardinalDirection;
 import generation.Floorplan;
 import generation.Maze;
-
+import gui.RobotDriver.Driver;
 
 /**
  * Class handles the user interaction
@@ -109,6 +109,8 @@ public class StatePlaying implements State {
      */
     boolean started;  
   
+    Driver drive;
+    
     /**
      * Constructor uses default settings but does not deliver a fully operation instance,
      * requires a call to start() and setMaze().
@@ -120,6 +122,8 @@ public class StatePlaying implements State {
     	panel = null; // provided by start method
     	control = null; // provided by start method
     	started = false; // method start has not been called yet
+    	
+    	drive = null; // By default, no driver is selected
 
     	maze = null; // provided by set method
 
@@ -144,6 +148,11 @@ public class StatePlaying implements State {
     public void setMaze(Maze maze) {
         this.maze = maze;
     }
+    
+    public void setDriver(Driver driver) {
+    	this.drive = driver;
+    }
+    
     /**
      * Start the actual game play by showing the playing screen.
      * If the panel is null, all drawing operations are skipped.
@@ -179,6 +188,28 @@ public class StatePlaying implements State {
         	// else: dry-run without graphics, most likely for testing purposes
         	printWarning();
         }
+        //Activate robot driver
+    
+        if (drive != null); {
+        	if (drive == gui.RobotDriver.Driver.Wizard) {
+        		Wizard wizard = new Wizard();
+        		ReliableRobot bot = new ReliableRobot();
+        		
+        		bot.setController(control);
+        		wizard.setMaze(maze);
+        		wizard.setRobot(bot);
+
+        		System.out.println("Robot initialized");
+        		
+        		try {
+					wizard.drive1Step2Exit();
+					Thread.sleep(1000);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
+    	}
     }
     /**
      * Initializes the drawer for the first person view
@@ -208,6 +239,8 @@ public class StatePlaying implements State {
         setCurrentPosition(start[0],start[1]) ;
         cd = CardinalDirection.East;
 	}
+	
+	
  
 	/**
      * Switches the controller to the final screen
