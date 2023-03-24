@@ -62,8 +62,8 @@ public class Wizard implements RobotDriver {
 		
 		while (distance > 0) { 
 			this.drive1Step2Exit();
-			distance -= 1; 
-			Thread.sleep(100); } //Added slight delay to robot's movements
+			distance -= 1; }
+			//Thread.sleep(1000);  //Delay to robot's movements
 		return (distance == 0 && cheatMaze.getExitPosition() == robot.getCurrentPosition()) ? true : false;
 	}
 
@@ -73,9 +73,72 @@ public class Wizard implements RobotDriver {
 		int dest[] = cheatMaze.getNeighborCloserToExit(start[0], start[1]);
 		CardinalDirection dir = robot.getCurrentDirection();
 		
-		if (start == cheatMaze.getExitPosition()) {
+		if (start == cheatMaze.getExitPosition() || dest == null) { //Should indicate that we are at exit position
+			//Rotate to face exit
+			if (cheatMaze.hasWall(start[0], start[1], CardinalDirection.North ) == false && cheatMaze.isValidPosition(start[0], start[1] - 1) == false) {
+				switch(dir) {
+				case North:
+					break;
+				case East:
+					robot.rotate(Turn.RIGHT);
+					break;
+				case West:
+					robot.rotate(Turn.LEFT);
+					break;
+				case South:
+					robot.rotate(Turn.AROUND);
+					break;
+				}
+			}
+			if (cheatMaze.hasWall(start[0], start[1], CardinalDirection.East) == false && cheatMaze.isValidPosition(start[0] + 1, start[1]) == false) {
+				switch(dir) {
+				case North:
+					robot.rotate(Turn.LEFT);
+					break;
+				case East:
+					break;
+				case West:
+					robot.rotate(Turn.AROUND);
+					break;
+				case South:
+					robot.rotate(Turn.RIGHT);
+					break;
+				}
+			}
+			if (cheatMaze.hasWall(start[0], start[1], CardinalDirection.West) == false && cheatMaze.isValidPosition(start[0] - 1, start[1]) == false) {
+				switch(dir) {
+				case North:
+					robot.rotate(Turn.RIGHT);
+					break;
+				case East:
+					robot.rotate(Turn.AROUND);
+					break;
+				case West:
+					break;
+				case South:
+					robot.rotate(Turn.LEFT);
+					break;
+				}
+			}
+			if (cheatMaze.hasWall(start[0], start[1], CardinalDirection.South) == false && cheatMaze.isValidPosition(start[0], start[1] + 1) == false) {
+				switch(dir) {
+				case North:
+					robot.rotate(Turn.AROUND);
+					break;
+				case East:
+					robot.rotate(Turn.LEFT);
+					break;
+				case West:
+					robot.rotate(Turn.RIGHT);
+					break;
+				case South:
+					break;
+				}
+			}
+			//robot.move(1);
 			return false;
 		}
+		
 		if (start[0] > dest[0]) {	//West
 			switch(dir) {
 			case North:

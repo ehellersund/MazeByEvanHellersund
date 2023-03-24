@@ -189,7 +189,6 @@ public class StatePlaying implements State {
         	printWarning();
         }
         //Activate robot driver
-    
         if (drive != null); {
         	if (drive == gui.RobotDriver.Driver.Wizard) {
         		Wizard wizard = new Wizard();
@@ -215,7 +214,7 @@ public class StatePlaying implements State {
         			wizard.drive2Exit();
 					
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
+					System.out.println("Drive2Exit Failed Somehow");
 					e.printStackTrace();
 				}
         	}
@@ -316,8 +315,8 @@ public class StatePlaying implements State {
         	LOGGER.fine("Move 1 step forward");
             walk(1);
             // Temp code used to check position & direction
-            System.out.println(getCurrentDirection());
-            System.out.println("[" + getCurrentPosition()[0] + ", " + getCurrentPosition()[1] + "]");
+            //System.out.println(getCurrentDirection());
+            //System.out.println("[" + getCurrentPosition()[0] + ", " + getCurrentPosition()[1] + "]");
             
             // check termination, did we leave the maze?
             if (isOutside(px,py)) {
