@@ -62,7 +62,8 @@ public class Wizard implements RobotDriver {
 		
 		while (distance > 0) { 
 			this.drive1Step2Exit();
-			distance -= 1; }
+			distance -= 1; 
+			Thread.sleep(100); } //Added slight delay to robot's movements
 		return (distance == 0 && cheatMaze.getExitPosition() == robot.getCurrentPosition()) ? true : false;
 	}
 
@@ -78,7 +79,7 @@ public class Wizard implements RobotDriver {
 		if (start[0] > dest[0]) {	//West
 			switch(dir) {
 			case North:
-				robot.rotate(Turn.LEFT);
+				robot.rotate(Turn.RIGHT);
 				robot.move(1);
 				break;
 			case East:
@@ -89,7 +90,7 @@ public class Wizard implements RobotDriver {
 				robot.move(1);
 				break;
 			case South:
-				robot.rotate(Turn.RIGHT);
+				robot.rotate(Turn.LEFT);
 				robot.move(1);
 				break;
 			}
@@ -97,7 +98,7 @@ public class Wizard implements RobotDriver {
 		if (start[0] < dest[0]) {	//East
 			switch(dir) {
 			case North:
-				robot.rotate(Turn.RIGHT);
+				robot.rotate(Turn.LEFT);
 				robot.move(1);
 				break;
 			case East:
@@ -108,7 +109,7 @@ public class Wizard implements RobotDriver {
 				robot.move(1);
 				break;
 			case South:
-				robot.rotate(Turn.LEFT);
+				robot.rotate(Turn.RIGHT);
 				robot.move(1); 
 				break;
 			}
@@ -139,11 +140,11 @@ public class Wizard implements RobotDriver {
 				robot.move(1);
 				break;
 			case East:
-				robot.rotate(Turn.RIGHT);
+				robot.rotate(Turn.LEFT);
 				robot.move(1);
 				break;
 			case West:
-				robot.rotate(Turn.LEFT);
+				robot.rotate(Turn.RIGHT);
 				robot.move(1);
 				break;
 			case South:

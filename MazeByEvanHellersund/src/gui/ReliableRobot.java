@@ -22,6 +22,10 @@ import generation.Maze;
  *Moving South = [0, +1]
  *Moving West = [-1, 0]
  *
+ * S
+ *W E
+ * N
+ * 
  * @author Evan Hellersund
  * 
  */
