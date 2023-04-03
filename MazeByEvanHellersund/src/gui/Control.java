@@ -346,6 +346,17 @@ public class Control extends JFrame implements KeyListener {
 			    	msg = "Command line input detected: generating random maze with Boruvka's algorithm.";
 			        ((StateTitle)currentState).setBuilder(Order.Builder.Boruvka);
 			    	break;
+			    default: // assume this is a filename
+			    	File f = new File(parameter) ;
+			        if (f.exists() && f.canRead())
+			        {
+			            msg = "Detected file descriptor on command line, loading maze from this file: " + parameter;
+			            ((StateTitle)currentState).setFileName(parameter);
+			        }
+			        else {
+			            // None of the predefined strings and not a filename either: 
+			            msg = "Unknown command line parameter: " + parameter + " ignored, operating in default mode.";
+			        }
 		    	}
 		    	argNum += 2;
 		    	break;
@@ -360,30 +371,23 @@ public class Control extends JFrame implements KeyListener {
 			    	msg = "Triggering automated playing mode WallFollower for the game";
 			    	((StateTitle)currentState).setDriver(RobotDriver.Driver.WallFollower);
 			    	break;
+			    default:
+			    	msg = "Unknown driver, ignoring input";
 		    	}
 		    	argNum += 2;
 		    	break;
 	    	
 		    case "-r":
-		    	System.out.println("R option not yet configured");
+		    	msg = ("R option not yet configured, ignoring");
 		    	argNum += 2;
 		    	break;
 		    	
-		    default: // assume this is a filename
-		    	File f = new File(parameter) ;
-		        if (f.exists() && f.canRead())
-		        {
-		            msg = "Detected file descriptor on command line, loading maze from this file: " + parameter;
-		            ((StateTitle)currentState).setFileName(parameter);
-		        }
-		        else {
-		            // None of the predefined strings and not a filename either: 
-		            msg = "Unknown command line parameter: " + parameter + " ignored, operating in default mode.";
-		        }
+		    default:
+		    	msg = "Invalid command line argument number " + argNum;
 		    	argNum += 2;
 		        break;
 		    }
-		    LOGGER.fine(msg);
+	    LOGGER.fine(msg);
 	    }
 	    
 	    
