@@ -15,11 +15,16 @@ import generation.Maze;
  *	Robot (drives it around, tells it what to do, etc.)
  *	UnreliableSensor (has to use this sensor to look around and tell where it is)
  *
+ *Design plan:
+ *	Follow walls to the left (obviously)
+ *	If there is no wall to the left, rotate left
+ *	If there is a wall left and in front, rotate right. If still wall in front, right again (backwards)
  *@author Evan Hellersund
  *
  */
 
 public class WallFollower implements RobotDriver {
+	Robot robot;
 
 	@Override
 	public void setRobot(Robot r) {

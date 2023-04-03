@@ -324,43 +324,69 @@ public class Control extends JFrame implements KeyListener {
 	    
 	    // command line input only applies to the first round of the game
 	    // so we can directly apply it to the currentState 
-		
-	    String parameter = args[0];
-	    String msg = "Error in handling command line input: " + parameter; // message for feedback
-	    switch (parameter) {
-	    case "Prim" :
-	    	msg = "Command line input detected: generating random maze with Prim's algorithm.";
-	        ((StateTitle)currentState).setBuilder(Order.Builder.Prim);
-	    	break;
-	    case "Kruskal":
-	    case "Eller":
-	    case "Boruvka":
-	    	msg = "Command line input detected: generating random maze with Boruvka's algorithm.";
-	        ((StateTitle)currentState).setBuilder(Order.Builder.Boruvka);
-	    	break;
-	    case "Wizard":
-	    	msg = "Triggering automated playing mode Wizard for the game";
-	    	((StateTitle)currentState).setDriver(RobotDriver.Driver.Wizard);
-	    	break;
-	    case "WallFollower":
-	    	msg = "Triggering automated playing mode WallFollower for the game";
-	    	((StateTitle)currentState).setDriver(RobotDriver.Driver.WallFollower);
-	    	break;
-	    default: // assume this is a filename
-	    	File f = new File(parameter) ;
-	        if (f.exists() && f.canRead())
-	        {
-	            msg = "Detected file descriptor on command line, loading maze from this file: " + parameter;
-	            ((StateTitle)currentState).setFileName(parameter);
-	        }
-	        else {
-	            // None of the predefined strings and not a filename either: 
-	            msg = "Unknown command line parameter: " + parameter + " ignored, operating in default mode.";
-	        }
-	    	break;
+	    
+	    //The plan is to iterate through the arguments to switch between the different changeable options
+	    
+	    int argNum = 0;
+	    
+	    while(argNum < args.length) {
+	    	String parameter = args[argNum];
+		    String msg = "Error in handling command line input: " + parameter; // message for feedback
+		    
+		    switch (parameter) {
+		    case "-g":
+		    	switch (args[argNum + 1]) {
+		    	case "Prim" :
+			    	msg = "Command line input detected: generating random maze with Prim's algorithm.";
+			        ((StateTitle)currentState).setBuilder(Order.Builder.Prim);
+			    	break;
+			    case "Kruskal":
+			    case "Eller":
+			    case "Boruvka":
+			    	msg = "Command line input detected: generating random maze with Boruvka's algorithm.";
+			        ((StateTitle)currentState).setBuilder(Order.Builder.Boruvka);
+			    	break;
+		    	}
+		    	argNum += 2;
+		    	break;
+		    
+		    case "-d":
+		    	switch (args[argNum + 1]) { 
+		    	case "Wizard":
+			    	msg = "Triggering automated playing mode Wizard for the game";
+			    	((StateTitle)currentState).setDriver(RobotDriver.Driver.Wizard);
+			    	break;
+			    case "WallFollower":
+			    	msg = "Triggering automated playing mode WallFollower for the game";
+			    	((StateTitle)currentState).setDriver(RobotDriver.Driver.WallFollower);
+			    	break;
+		    	}
+		    	argNum += 2;
+		    	break;
+	    	
+		    case "-r":
+		    	System.out.println("R option not yet configured");
+		    	argNum += 2;
+		    	break;
+		    	
+		    default: // assume this is a filename
+		    	File f = new File(parameter) ;
+		        if (f.exists() && f.canRead())
+		        {
+		            msg = "Detected file descriptor on command line, loading maze from this file: " + parameter;
+		            ((StateTitle)currentState).setFileName(parameter);
+		        }
+		        else {
+		            // None of the predefined strings and not a filename either: 
+		            msg = "Unknown command line parameter: " + parameter + " ignored, operating in default mode.";
+		        }
+		    	argNum += 2;
+		        break;
+		    }
+		    LOGGER.fine(msg);
 	    }
 	    
-	    LOGGER.fine(msg);
+	    
 	}
 	/**
      * Method incorporates all reactions to keyboard input in original code. 

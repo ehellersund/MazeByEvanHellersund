@@ -167,9 +167,9 @@ public class ReliableRobot implements Robot {
 				Battery[0] -= 6;
 				if (hasStopped() == true) {
 					loser();
+				}
 				RobotController.robotMove();
 				Odometer += 1;
-				}
 				stepsLeft -= 1;
 			}
 		}

@@ -1,5 +1,8 @@
 package gui;
 
+import generation.Maze;
+import gui.Robot.Direction;
+
 /*Class: 
  * 	UnreliableSensor
  *Responsibilities:
@@ -16,6 +19,10 @@ package gui;
  */
 
 public class UnreliableSensor extends ReliableSensor {
+	
+	Maze useMaze = null;
+	Direction orientation = null;
+	boolean off = false;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
