@@ -218,10 +218,31 @@ public class StatePlaying implements State {
         		try {
         			//System.out.println(sensorConf);
         			wizard.drive2Exit();
-				} catch (Exception e) {
-					System.out.println("Drive2Exit Failed Somehow");
-					e.printStackTrace();
+				} catch (Exception a) {
+					System.out.println("Wizard Drive2Exit Failed Somehow");
+					a.printStackTrace();
 				}
+        		System.out.println(bot.getBatteryLevel());
+        	}
+        	if (drive == gui.RobotDriver.Driver.WallFollower) {
+        		WallFollower wally = new WallFollower();
+        		UnreliableRobot bot = new UnreliableRobot();
+        		
+        		bot.setController(control);
+        		
+        		try {
+					wally.receiveConfig(sensorConf); } 
+        		catch (Exception b) {
+					System.out.println("Attempted to set robot's sensors to invalid configurations"); }
+				
+				wally.setMaze(maze);
+				wally.setRobot(bot);
+				System.out.println("Robot initialized");
+				
+				try {	
+					wally.drive2Exit(); } 
+				catch (Exception c) {
+					System.out.println("WallFollower Drive2Exit Failed Somehow"); }
         		System.out.println(bot.getBatteryLevel());
         	}
     	}

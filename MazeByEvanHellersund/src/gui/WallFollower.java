@@ -1,6 +1,7 @@
 package gui;
 
 import generation.Maze;
+import gui.Robot.Direction;
 
 /*Class: 
  * 	WallFollower
@@ -25,22 +26,76 @@ import generation.Maze;
 
 public class WallFollower implements RobotDriver {
 	Robot robot;
+	Maze useMaze;
+	int[] sensorConfig;
 
 	@Override
 	public void setRobot(Robot r) {
-		// TODO Auto-generated method stub
-
+		//Front sensor
+		if (sensorConfig[0] == 0) {
+			UnreliableSensor front = new UnreliableSensor();
+			front.setSensorDirection(Direction.FORWARD);
+			front.setMaze(useMaze);
+			r.addDistanceSensor(front, Direction.FORWARD);
+		}
+		else if (sensorConfig[0] == 1) {
+			ReliableSensor front = new ReliableSensor();
+			front.setSensorDirection(Direction.FORWARD);
+			front.setMaze(useMaze);
+			r.addDistanceSensor(front, Direction.FORWARD);
+		}
+		//Left sensor
+		if (sensorConfig[1] == 0) {
+			UnreliableSensor left = new UnreliableSensor();
+			left.setSensorDirection(Direction.LEFT);
+			left.setMaze(useMaze);
+			r.addDistanceSensor(left, Direction.LEFT);
+		}
+		else if (sensorConfig[1] == 1) {
+			ReliableSensor left = new ReliableSensor();
+			left.setSensorDirection(Direction.LEFT);
+			left.setMaze(useMaze);
+			r.addDistanceSensor(left, Direction.LEFT);
+		}
+		//Right sensor
+		if (sensorConfig[2] == 0) {
+			UnreliableSensor right = new UnreliableSensor();
+			right.setSensorDirection(Direction.RIGHT);
+			right.setMaze(useMaze);
+			r.addDistanceSensor(right, Direction.RIGHT);
+		}
+		else if (sensorConfig[2] == 1) {
+			ReliableSensor right = new ReliableSensor();
+			right.setSensorDirection(Direction.RIGHT);
+			right.setMaze(useMaze);
+			r.addDistanceSensor(right, Direction.RIGHT);
+		}
+		//Back sensor
+		if (sensorConfig[3] == 0) {
+			UnreliableSensor back = new UnreliableSensor();
+			back.setSensorDirection(Direction.BACKWARD);
+			back.setMaze(useMaze);
+			r.addDistanceSensor(back, Direction.BACKWARD);
+		}
+		else if (sensorConfig[3] == 1) {
+			ReliableSensor back = new ReliableSensor();
+			back.setSensorDirection(Direction.BACKWARD);
+			back.setMaze(useMaze);
+			r.addDistanceSensor(back, Direction.BACKWARD);
+		}
+		//Now assigning the robot with its sensors
+		robot = r;
 	}
 
 	@Override
 	public void setMaze(Maze maze) {
-		// TODO Auto-generated method stub
+		useMaze = maze;
 
 	}
 
 	@Override
 	public boolean drive2Exit() throws Exception {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
@@ -61,10 +116,18 @@ public class WallFollower implements RobotDriver {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	
+	public void receiveConfig(String config) throws Exception {
+		sensorConfig = new int[4];
+		System.out.println(Character.getNumericValue(config.charAt(0)));
+		
+		for (int i = 0; i < config.length(); i++) {
+			if (Character.getNumericValue(config.charAt(i)) == 0 || Character.getNumericValue(config.charAt(i)) == 1) {
+				sensorConfig[i] = Character.getNumericValue(config.charAt(i));
+			}
+			else {
+			throw new Exception("Tried to set a sensor to a non-binary value"); 
+			}
+		}
 	}
-
 }

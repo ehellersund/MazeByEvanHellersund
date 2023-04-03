@@ -70,12 +70,12 @@ public class UnreliableSensor extends ReliableSensor {
 	@Override
 	public void startFailureAndRepairProcess(int meanTimeBetweenFailures, int meanTimeToRepair)
 			throws UnsupportedOperationException {
-		throw new UnsupportedOperationException("Not supported for ReliableSensor");
+		
 	}
 
 	@Override
 	public void stopFailureAndRepairProcess() throws UnsupportedOperationException {
-		throw new UnsupportedOperationException("Not supported for ReliableSensor");
+		
 	}
 	
 	public boolean isOff() {
