@@ -372,6 +372,9 @@ public class Control extends JFrame implements KeyListener {
 			    	msg = "Triggering automated playing mode WallFollower for the game";
 			    	((StateTitle)currentState).setDriver(RobotDriver.Driver.WallFollower);
 			    	break;
+			    case "Manual":
+			    	msg = "Manual driving operation (not necessary to be called)";
+			    	break;
 			    default:
 			    	msg = "Unknown driver, ignoring input";
 			    	break;
