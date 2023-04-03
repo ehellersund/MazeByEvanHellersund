@@ -62,6 +62,8 @@ public class StateGenerating extends DefaultOrder implements State {
     
     Driver drive;
     
+    String sensorConf;
+    
     /** 
      * The filename for a file that stores a maze.
      * If filename is null: generate a maze. 
@@ -263,6 +265,7 @@ public class StateGenerating extends DefaultOrder implements State {
         // and hand over control to the new state
         control.setState(currentState);
         currentState.setDriver(drive);
+        currentState.setSensorConf(sensorConf);
         currentState.start(control, panel);
     }
     /**
@@ -306,6 +309,10 @@ public class StateGenerating extends DefaultOrder implements State {
     
     public void setDriver(Driver driver) {
     	this.drive = driver;
+    }
+    
+    public void setSensorConf(String str) {
+    	this.sensorConf = str;
     }
 }
 

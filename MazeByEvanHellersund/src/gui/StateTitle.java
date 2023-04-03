@@ -108,6 +108,8 @@ public class StateTitle implements State {
     
     Driver drive;
     
+    String sensorConf;
+    
     public StateTitle() {
     	// initialization of some fields is delayed and done in start method
     	view = null; // initialized in start method
@@ -156,6 +158,11 @@ public class StateTitle implements State {
     public void setDriver(Driver driver) {
     	this.drive = driver;
     }
+    
+    public void setSensorConf(String str) {
+    	this.sensorConf = str;
+    }
+    
     /**
      * The method provides an appropriate response to user keyboard input. 
      * The control calls this method to communicate input and delegate its handling.
@@ -210,6 +217,7 @@ public class StateTitle implements State {
         nextState.setPerfect(control.isPerfect());
         nextState.setSkillLevel(skillLevel);
         nextState.setDriver(drive);
+        nextState.setSensorConf(sensorConf);
         
         if (!control.isDeterministic()) {
         	//LOGGER.severe("Assignment: implement code such that a repeated generation creates different mazes! Program stops!");

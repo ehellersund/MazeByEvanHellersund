@@ -357,6 +357,7 @@ public class Control extends JFrame implements KeyListener {
 			            // None of the predefined strings and not a filename either: 
 			            msg = "Unknown command line parameter: " + parameter + " ignored, operating in default mode.";
 			        }
+			        break;
 		    	}
 		    	argNum += 2;
 		    	break;
@@ -364,7 +365,7 @@ public class Control extends JFrame implements KeyListener {
 		    case "-d":
 		    	switch (args[argNum + 1]) { 
 		    	case "Wizard":
-			    	msg = "Triggering automated playing mode Wizard for the game";
+		    		msg = "Triggering automated playing mode Wizard for the game";
 			    	((StateTitle)currentState).setDriver(RobotDriver.Driver.Wizard);
 			    	break;
 			    case "WallFollower":
@@ -373,18 +374,36 @@ public class Control extends JFrame implements KeyListener {
 			    	break;
 			    default:
 			    	msg = "Unknown driver, ignoring input";
+			    	break;
 		    	}
 		    	argNum += 2;
 		    	break;
 	    	
 		    case "-r":
-		    	msg = ("R option not yet configured, ignoring");
+		    	//for(int r = 0; r < 4; r++) {
+		    	//	System.out.println(args[argNum + 1].charAt(r));
+		    	//}
+		    	var arg = args[argNum + 1];
+		    	if (arg.length() != 4 || ! Character.isDigit(arg.charAt(0)) || ! Character.isDigit(arg.charAt(1)) || ! Character.isDigit(arg.charAt(2)) || ! Character.isDigit(arg.charAt(3))) {
+		    		msg = "Invalid sensor configuration on command line input, ignoring";
+		    		argNum += 2;
+		    		break;
+		    	}
+		    	msg = "Sensor configuration: " + arg;
+		    	((StateTitle)currentState).setSensorConf(arg);
 		    	argNum += 2;
 		    	break;
 		    	
 		    default:
 		    	msg = "Invalid command line argument number " + argNum;
-		    	argNum += 2;
+		    	argNum += 1;
+		    	while(argNum < args.length) {
+		    		if (args[argNum].equals("-g") || args[argNum].equals("-d") || args[argNum].equals("-r")) {
+		    			msg = "Skipped at least one invalid command line argument";
+		    			break;
+		    		}
+		    		argNum += 1;
+		    	}
 		        break;
 		    }
 	    LOGGER.fine(msg);

@@ -111,6 +111,8 @@ public class StatePlaying implements State {
   
     Driver drive;
     
+    String sensorConf;
+    
     /**
      * Constructor uses default settings but does not deliver a fully operation instance,
      * requires a call to start() and setMaze().
@@ -151,6 +153,10 @@ public class StatePlaying implements State {
     
     public void setDriver(Driver driver) {
     	this.drive = driver;
+    }
+    
+    public void setSensorConf(String str) {
+    	this.sensorConf = str;
     }
     
     /**
@@ -197,7 +203,7 @@ public class StatePlaying implements State {
         		bot.setController(control);
         		wizard.setMaze(maze);
         		wizard.setRobot(bot);
-
+        		
         		System.out.println("Robot initialized");
         		
                 /*
@@ -210,6 +216,7 @@ public class StatePlaying implements State {
                 */
 
         		try {
+        			//System.out.println(sensorConf);
         			wizard.drive2Exit();
 				} catch (Exception e) {
 					System.out.println("Drive2Exit Failed Somehow");
