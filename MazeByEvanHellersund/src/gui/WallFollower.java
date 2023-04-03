@@ -107,14 +107,12 @@ public class WallFollower implements RobotDriver {
 
 	@Override
 	public float getEnergyConsumption() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 3500 - robot.getBatteryLevel();
 	}
 
 	@Override
 	public int getPathLength() {
-		// TODO Auto-generated method stub
-		return 0;
+		return robot.getOdometerReading();
 	}
 	
 	public void receiveConfig(String config) throws Exception {
