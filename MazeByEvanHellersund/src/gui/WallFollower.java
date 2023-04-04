@@ -18,7 +18,7 @@ import gui.Robot.Direction;
  *
  *Design plan:
  *	Follow walls to the left (obviously)
- *	If there is no wall to the left, rotate left
+ *	If there is no wall to the left, rotate left, then forward
  *	If there is a wall left and in front, rotate right. If still wall in front, right again (backwards)
  *@author Evan Hellersund
  *
@@ -36,6 +36,7 @@ public class WallFollower implements RobotDriver {
 			UnreliableSensor front = new UnreliableSensor();
 			front.setSensorDirection(Direction.FORWARD);
 			front.setMaze(useMaze);
+			front.powerButton();
 			r.addDistanceSensor(front, Direction.FORWARD);
 		}
 		else if (sensorConfig[0] == 1) {
@@ -95,14 +96,19 @@ public class WallFollower implements RobotDriver {
 
 	@Override
 	public boolean drive2Exit() throws Exception {
-
+		Thread.sleep(3000);
+		robot.move(1);
+		robot.distanceToObstacle(Direction.FORWARD);
 		return false;
 	}
 
 	@Override
 	public boolean drive1Step2Exit() throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+	//Follow walls to the left (obviously)
+	//If there is no wall to the left, rotate left, then forward
+	//If there is a wall left and in front, rotate right. If still wall in front, right again (backwards)
+		robot.move(1);
+		return true;
 	}
 
 	@Override
@@ -117,7 +123,6 @@ public class WallFollower implements RobotDriver {
 	
 	public void receiveConfig(String config) throws Exception {
 		sensorConfig = new int[4];
-		System.out.println(Character.getNumericValue(config.charAt(0)));
 		
 		for (int i = 0; i < config.length(); i++) {
 			if (Character.getNumericValue(config.charAt(i)) == 0 || Character.getNumericValue(config.charAt(i)) == 1) {

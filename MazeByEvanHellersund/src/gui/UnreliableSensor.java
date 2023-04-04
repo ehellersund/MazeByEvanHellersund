@@ -31,6 +31,10 @@ public class UnreliableSensor extends ReliableSensor {
 		int distance = 0;
 		int checkPos[] = currentPosition;
 		
+		if (isOff()) {
+			return -1;
+		}
+		
 		if (useMaze == null) {
 			throw new IllegalArgumentException("Tried to calculate distance for a null maze"); 
 		}
