@@ -230,15 +230,44 @@ public class StatePlaying implements State {
         		
         		bot.setController(control);
         		
+        		//Attempt to configure robot's sensors
         		try {
 					wally.receiveConfig(sensorConf); } 
         		catch (Exception b) {
 					System.out.println("Attempted to set robot's sensors to invalid configurations"); }
 				
+        		//Finish setting up robot
 				wally.setMaze(maze);
 				wally.setRobot(bot);
-				System.out.println("Robot initialized");
+				System.out.println("Robot initialized. Beginning failure & repair process");
 				
+				//Begin failure + repair process
+				for (int i = 0; i < sensorConf.length(); i++) {
+					if (Character.getNumericValue(sensorConf.charAt(i)) == 0) {
+						switch(i) {
+						case 0:
+							bot.FrontSensor.startFailureAndRepairProcess(4, 2);
+							break;
+						case 1:
+							bot.LeftSensor.startFailureAndRepairProcess(4, 2);
+							break;
+						case 2:
+							bot.RightSensor.startFailureAndRepairProcess(4, 2);
+							break;
+						case 3:
+							bot.BackSensor.startFailureAndRepairProcess(4, 2);
+							break;
+						}
+						try {
+							Thread.sleep(1300);
+						} catch (InterruptedException e) {
+							System.out.println("Thread issue when starting failure & repair");
+							e.printStackTrace();
+						}
+					}
+				}
+				
+				//Attempt to drive to exit
 				try {	
 					wally.drive2Exit(); } 
 				catch (Exception c) {

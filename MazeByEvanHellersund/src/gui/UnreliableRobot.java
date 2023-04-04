@@ -10,14 +10,41 @@ public class UnreliableRobot extends ReliableRobot {
 	boolean paused = false;
 	
 	@Override
-	public void startFailureAndRepairProcess(Direction direction, int meanTimeBetweenFailures, int meanTimeToRepair)
-			throws UnsupportedOperationException {
+	public void startFailureAndRepairProcess(Direction direction, int meanTimeBetweenFailures, int meanTimeToRepair) {
+		switch(direction) {
+		case FORWARD:
+			FrontSensor.startFailureAndRepairProcess(meanTimeBetweenFailures, meanTimeToRepair);
+			break;
+		case LEFT:
+			LeftSensor.startFailureAndRepairProcess(meanTimeBetweenFailures, meanTimeToRepair);
+			break;
+		case RIGHT:
+			RightSensor.startFailureAndRepairProcess(meanTimeBetweenFailures, meanTimeToRepair);
+			break;
+		case BACKWARD:
+			BackSensor.startFailureAndRepairProcess(meanTimeBetweenFailures, meanTimeToRepair);
+			break;
+		}
 	}
 	
 	@Override
 	public void stopFailureAndRepairProcess(Direction direction) throws UnsupportedOperationException {
-		
+		switch(direction) {
+		case FORWARD:
+			FrontSensor.stopFailureAndRepairProcess();
+			break;
+		case LEFT:
+			LeftSensor.stopFailureAndRepairProcess();
+			break;
+		case RIGHT:
+			RightSensor.stopFailureAndRepairProcess();
+			break;
+		case BACKWARD:
+			BackSensor.stopFailureAndRepairProcess();
+			break;
+		}
 	}
+	
 	//It cheats a little to make sure you aren't going to make an illegal move, and implements loss if you do
 	@Override
 	public void move(int distance) throws Exception, UnsupportedOperationException {
@@ -41,13 +68,16 @@ public class UnreliableRobot extends ReliableRobot {
 		}
 	}
 	
+	//Method checks to see if each sensor is able to field its distance request, and if one of is able
+	//it will rotate to use it. It prioritizes closer sensors, e.g. Left and Right when trying to find
+	//the distance in the forward direction. If all are off, it will wait for one to turn back on and 
+	//then use that one to find the distance.
 	@Override
 	public int distanceToObstacle(Direction direction) throws Exception, UnsupportedOperationException {
 		int distance = 0;
 		
 		switcher:
 		switch(direction) {
-		//Wants to know forward distance
 		case FORWARD:
 			if (FrontSensor == null) {
 				throw new UnsupportedOperationException("Sensor does not exist in FORWARD direction"); }

@@ -99,11 +99,26 @@ public class WallFollower implements RobotDriver {
 
 	@Override
 	public boolean drive2Exit() throws Exception {
+		drive1Step2Exit();
 		Thread.sleep(2000);
-		//System.out.println(robot.distanceToObstacle(Direction.FORWARD));
-		//System.out.println(robot.distanceToObstacle(Direction.LEFT));
-		//System.out.println(robot.distanceToObstacle(Direction.BACKWARD));
-		//System.out.println(robot.distanceToObstacle(Direction.RIGHT));
+		drive1Step2Exit();
+		Thread.sleep(2000);
+		drive1Step2Exit();
+		Thread.sleep(2000);
+		drive1Step2Exit();
+		Thread.sleep(2000);
+		drive1Step2Exit();
+		Thread.sleep(2000);
+		drive1Step2Exit();
+		Thread.sleep(2000);
+		drive1Step2Exit();
+		Thread.sleep(2000);
+		drive1Step2Exit();
+		Thread.sleep(2000);
+		drive1Step2Exit();
+		Thread.sleep(2000);
+		drive1Step2Exit();
+		Thread.sleep(2000);
 		return false;
 	}
 

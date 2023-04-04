@@ -17,12 +17,16 @@ import gui.Robot.Direction;
  *
  *@author Evan Hellersund
  *
+ *Note: 4 second uptime, 2 second downtime, 1.3 second delay before starting a second process
  */
 
-public class UnreliableSensor extends ReliableSensor {
+public class UnreliableSensor extends ReliableSensor implements Runnable {
 	
-	Direction orientation = null;
-	boolean off = false;
+	boolean threadRunning = false; //Indicates the thread is going
+	boolean off = false;  //Indicates whether the sensor is running
+	int uptime = 0;
+	int downtime = 0;
+	private Thread repair;
 
 	@Override
 	public int distanceToObstacle(int[] currentPosition, CardinalDirection currentDirection, float[] powersupply)
@@ -73,7 +77,12 @@ public class UnreliableSensor extends ReliableSensor {
 	@Override
 	public void startFailureAndRepairProcess(int meanTimeBetweenFailures, int meanTimeToRepair)
 			throws UnsupportedOperationException {
+		uptime = meanTimeBetweenFailures;
+		downtime = meanTimeToRepair;
 		
+		threadRunning = true;
+		repair = new Thread(this);
+		repair.start();
 	}
 
 	@Override
@@ -85,8 +94,35 @@ public class UnreliableSensor extends ReliableSensor {
 		return off;
 	}
 	
+	//Cheaty method for testing
 	public void powerButton() {
 		off = ! off;
+	}
+	
+	//Runnable method
+	public void run() {
+		while (threadRunning == true) {
+			try {
+				Thread.sleep(uptime*1000); } 
+			catch (InterruptedException a) {
+				System.out.println("The sensor thread blew up.");
+				off = false;
+				a.printStackTrace(); }
+			
+			System.out.println(orientation + " sensor turning off");
+			off = true;
+			
+			try {
+				Thread.sleep(downtime*1000); } 
+			catch (InterruptedException a) {
+				System.out.println("The sensor thread blew up.");
+				off = false;
+				a.printStackTrace(); }
+			
+			System.out.println(orientation + " sensor turning on");
+			off = false;
+			
+		}
 	}
 
 }
