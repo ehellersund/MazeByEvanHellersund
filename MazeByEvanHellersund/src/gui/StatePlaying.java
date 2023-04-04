@@ -242,6 +242,7 @@ public class StatePlaying implements State {
 				try {	
 					wally.drive2Exit(); } 
 				catch (Exception c) {
+					c.printStackTrace();
 					System.out.println("WallFollower Drive2Exit Failed Somehow"); }
         		System.out.println(bot.getBatteryLevel());
         	}

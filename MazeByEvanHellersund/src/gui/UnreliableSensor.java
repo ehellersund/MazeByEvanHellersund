@@ -21,7 +21,6 @@ import gui.Robot.Direction;
 
 public class UnreliableSensor extends ReliableSensor {
 	
-	Maze useMaze = null;
 	Direction orientation = null;
 	boolean off = false;
 

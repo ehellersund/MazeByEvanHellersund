@@ -36,7 +36,7 @@ public class WallFollower implements RobotDriver {
 			UnreliableSensor front = new UnreliableSensor();
 			front.setSensorDirection(Direction.FORWARD);
 			front.setMaze(useMaze);
-			front.powerButton();
+			//front.powerButton();
 			r.addDistanceSensor(front, Direction.FORWARD);
 		}
 		else if (sensorConfig[0] == 1) {
@@ -50,6 +50,7 @@ public class WallFollower implements RobotDriver {
 			UnreliableSensor left = new UnreliableSensor();
 			left.setSensorDirection(Direction.LEFT);
 			left.setMaze(useMaze);
+			//left.powerButton();
 			r.addDistanceSensor(left, Direction.LEFT);
 		}
 		else if (sensorConfig[1] == 1) {
@@ -63,6 +64,7 @@ public class WallFollower implements RobotDriver {
 			UnreliableSensor right = new UnreliableSensor();
 			right.setSensorDirection(Direction.RIGHT);
 			right.setMaze(useMaze);
+			//right.powerButton();
 			r.addDistanceSensor(right, Direction.RIGHT);
 		}
 		else if (sensorConfig[2] == 1) {
@@ -76,6 +78,7 @@ public class WallFollower implements RobotDriver {
 			UnreliableSensor back = new UnreliableSensor();
 			back.setSensorDirection(Direction.BACKWARD);
 			back.setMaze(useMaze);
+			//back.powerButton();
 			r.addDistanceSensor(back, Direction.BACKWARD);
 		}
 		else if (sensorConfig[3] == 1) {
@@ -96,9 +99,11 @@ public class WallFollower implements RobotDriver {
 
 	@Override
 	public boolean drive2Exit() throws Exception {
-		Thread.sleep(3000);
-		robot.move(1);
-		robot.distanceToObstacle(Direction.FORWARD);
+		Thread.sleep(2000);
+		//System.out.println(robot.distanceToObstacle(Direction.FORWARD));
+		//System.out.println(robot.distanceToObstacle(Direction.LEFT));
+		//System.out.println(robot.distanceToObstacle(Direction.BACKWARD));
+		//System.out.println(robot.distanceToObstacle(Direction.RIGHT));
 		return false;
 	}
 
