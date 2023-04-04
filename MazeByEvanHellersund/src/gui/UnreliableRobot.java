@@ -116,7 +116,7 @@ public class UnreliableRobot extends ReliableRobot {
 					}
 				}
 				else {
-					return FrontSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery); }
+					return FrontSensor.distanceToObstacle(getCurrentPosition(), dToCD(Direction.FORWARD), Battery); }
 			}
 			break switcher;
 		//--------------------------------------------------
@@ -158,7 +158,7 @@ public class UnreliableRobot extends ReliableRobot {
 					}
 				}
 				else {
-				return LeftSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery); }
+				return LeftSensor.distanceToObstacle(getCurrentPosition(), dToCD(Direction.RIGHT), Battery); }
 			}
 			break switcher;
 		//--------------------------------------------------
@@ -200,7 +200,7 @@ public class UnreliableRobot extends ReliableRobot {
 					}
 				}
 				else {
-					return RightSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery); }
+					return RightSensor.distanceToObstacle(getCurrentPosition(), dToCD(Direction.LEFT), Battery); }
 			}
 			break switcher;
 		//--------------------------------------------------
@@ -242,7 +242,7 @@ public class UnreliableRobot extends ReliableRobot {
 					}
 				}
 				else {
-					return BackSensor.distanceToObstacle(getCurrentPosition(), dToCD(direction), Battery); }
+					return BackSensor.distanceToObstacle(getCurrentPosition(), dToCD(Direction.BACKWARD), Battery); }
 			}
 			break switcher;
 		}

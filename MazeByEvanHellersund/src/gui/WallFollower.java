@@ -1,7 +1,9 @@
 package gui;
 
+import generation.CardinalDirection;
 import generation.Maze;
 import gui.Robot.Direction;
+import gui.Robot.Turn;
 
 /*Class: 
  * 	WallFollower
@@ -99,26 +101,10 @@ public class WallFollower implements RobotDriver {
 
 	@Override
 	public boolean drive2Exit() throws Exception {
-		drive1Step2Exit();
-		Thread.sleep(2000);
-		drive1Step2Exit();
-		Thread.sleep(2000);
-		drive1Step2Exit();
-		Thread.sleep(2000);
-		drive1Step2Exit();
-		Thread.sleep(2000);
-		drive1Step2Exit();
-		Thread.sleep(2000);
-		drive1Step2Exit();
-		Thread.sleep(2000);
-		drive1Step2Exit();
-		Thread.sleep(2000);
-		drive1Step2Exit();
-		Thread.sleep(2000);
-		drive1Step2Exit();
-		Thread.sleep(2000);
-		drive1Step2Exit();
-		Thread.sleep(2000);
+		while (robot.isAtExit() == false) {
+			drive1Step2Exit();
+			Thread.sleep(500);
+		}
 		return false;
 	}
 
@@ -127,7 +113,35 @@ public class WallFollower implements RobotDriver {
 	//Follow walls to the left (obviously)
 	//If there is no wall to the left, rotate left, then forward
 	//If there is a wall left and in front, rotate right. If still wall in front, right again (backwards)
-		robot.move(1);
+		System.out.println("Left" + robot.distanceToObstacle(Direction.LEFT));
+		if (robot.distanceToObstacle(Direction.LEFT) == -1) {
+			System.out.println("All sensors are off");
+			return false;
+		}
+		if (robot.distanceToObstacle(Direction.LEFT) > 0) {
+			robot.rotate(Turn.LEFT);
+			robot.move(1);
+		}
+		else {
+			System.out.println("Forward" + robot.distanceToObstacle(Direction.FORWARD));
+			if (robot.distanceToObstacle(Direction.FORWARD) > 0) {
+				robot.move(1);
+			}
+			else {
+				System.out.println("Right" + robot.distanceToObstacle(Direction.RIGHT));
+				if (robot.distanceToObstacle(Direction.RIGHT) > 0) {
+					robot.rotate(Turn.RIGHT);
+					robot.move(1);
+				}
+				else {
+					robot.rotate(Turn.AROUND);
+					robot.move(1);
+				}
+			}
+		}
+		
+		//System.out.println(robot.distanceToObstacle(Direction.FORWARD));
+		//System.out.println(robot.distanceToObstacle(Direction.RIGHT));
 		return true;
 	}
 

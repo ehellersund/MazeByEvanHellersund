@@ -109,7 +109,7 @@ public class UnreliableSensor extends ReliableSensor implements Runnable {
 				off = false;
 				a.printStackTrace(); }
 			
-			System.out.println(orientation + " sensor turning off");
+			//System.out.println(orientation + " sensor turning off");
 			off = true;
 			
 			try {
@@ -119,7 +119,7 @@ public class UnreliableSensor extends ReliableSensor implements Runnable {
 				off = false;
 				a.printStackTrace(); }
 			
-			System.out.println(orientation + " sensor turning on");
+			//System.out.println(orientation + " sensor turning on");
 			off = false;
 			
 		}

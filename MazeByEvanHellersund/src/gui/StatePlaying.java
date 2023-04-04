@@ -239,22 +239,27 @@ public class StatePlaying implements State {
         		//Finish setting up robot
 				wally.setMaze(maze);
 				wally.setRobot(bot);
-				System.out.println("Robot initialized. Beginning failure & repair process");
+				System.out.println("Robot initialized");
 				
+				// /*Could do this in WallFollower instead?
 				//Begin failure + repair process
 				for (int i = 0; i < sensorConf.length(); i++) {
 					if (Character.getNumericValue(sensorConf.charAt(i)) == 0) {
 						switch(i) {
 						case 0:
+							System.out.println("Beginning failure & repair process for Front");
 							bot.FrontSensor.startFailureAndRepairProcess(4, 2);
 							break;
 						case 1:
+							System.out.println("Beginning failure & repair process for Left");
 							bot.LeftSensor.startFailureAndRepairProcess(4, 2);
 							break;
 						case 2:
+							System.out.println("Beginning failure & repair process for Right");
 							bot.RightSensor.startFailureAndRepairProcess(4, 2);
 							break;
 						case 3:
+							System.out.println("Beginning failure & repair process for Back");
 							bot.BackSensor.startFailureAndRepairProcess(4, 2);
 							break;
 						}
@@ -266,6 +271,7 @@ public class StatePlaying implements State {
 						}
 					}
 				}
+				//*/
 				
 				//Attempt to drive to exit
 				try {	
