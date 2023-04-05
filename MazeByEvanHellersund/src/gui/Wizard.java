@@ -63,7 +63,10 @@ public class Wizard implements RobotDriver {
 		while (distance > 0) {
 			this.drive1Step2Exit();
 			distance -= 1; }
-			//Thread.sleep(1000);  //Delay to robot's movements
+
+		//Stops right before the exit for debugging
+		//robot.move(1);
+		
 		return (distance == 0 && cheatMaze.getExitPosition() == robot.getCurrentPosition()) ? true : false;
 	}
 

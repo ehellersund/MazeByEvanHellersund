@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.util.logging.Logger;
 
 import gui.ColorTheme.MazeColors;
+import gui.RobotDriver.Driver;
 
 /**
  * Implements the screens that are displayed whenever the game is not in 
@@ -110,20 +111,20 @@ public class SimpleScreens {
      * Draws the finish screen, screen content is hard coded
      * @param panel holds the graphics for the off-screen image
      */
-	void redrawFinish(MazePanel panel) {
+	void redrawFinish(MazePanel panel, Driver driver, int dist) {
 		Graphics g = panel.getBufferGraphics() ;
         if (null == g) {
         	LOGGER.warning(errorMsg) ;
         }
         else {
-            redrawFinish(g);
+            redrawFinish(g, driver, dist);
         }
 	}
 	/**
 	 * Helper method for redraw to draw final screen, screen is hard coded
 	 * @param gc graphics is the off-screen image
 	 */
-	private void redrawFinish(Graphics gc) {
+	private void redrawFinish(Graphics gc, Driver driver, int dist) {
 		// produce blue background
 		drawBackground(gc);
 		// write the title 
@@ -132,6 +133,11 @@ public class SimpleScreens {
 		// write some extra blurb
 		updateFontAndColor(gc, smallBannerFont, MazeColors.TITLE_SMALL);
 		centerString(gc, "Congratulations!", 160);
+		// Only shows if a robot driver was used
+		if (driver != null) {
+			centerString(gc, "Driver: " + driver, 200); 
+			centerString(gc, "Distance travelled: " + dist, 220); 
+		}
 		// write the instructions
 		gc.setColor(ColorTheme.getColor(MazeColors.TITLE_DEFAULT));
 		centerString(gc, "Hit any key to restart", 300);

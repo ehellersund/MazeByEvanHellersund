@@ -365,19 +365,22 @@ public class Control extends JFrame implements KeyListener {
 		    case "-d":
 		    	switch (args[argNum + 1]) { 
 		    	case "Wizard":
+		    	case "wizard":
 		    		msg = "Triggering automated playing mode Wizard for the game";
 			    	((StateTitle)currentState).setDriver(RobotDriver.Driver.Wizard);
 			    	break;
-		    	case "Wallfollower":
 		    	case "WallFollower":
+		    	case "Wallfollower":
+		    	case "wallfollower":
 			    	msg = "Triggering automated playing mode WallFollower for the game";
 			    	((StateTitle)currentState).setDriver(RobotDriver.Driver.WallFollower);
 			    	break;
 			    case "Manual":
+			    case "manual":
 			    	msg = "Manual driving operation (not necessary to be called)";
 			    	break;
 			    default:
-			    	msg = "Unknown driver, ignoring input";
+			    	msg = "Unknown driver, ignoring input (manual)";
 			    	break;
 		    	}
 		    	argNum += 2;

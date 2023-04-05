@@ -108,10 +108,15 @@ public class StatePlaying implements State {
      * initial setting: false, start sets it to true.
      */
     boolean started;  
-  
+    
+    //Used when changing states to track the driver
     Driver drive;
     
+    //Used when changing states to track the sensor configuration
     String sensorConf;
+    
+    //Used for drawing distance on final screen
+    int pathlength = 0;
     
     /**
      * Constructor uses default settings but does not deliver a fully operation instance,
@@ -218,6 +223,7 @@ public class StatePlaying implements State {
         		try {
         			//System.out.println(sensorConf);
         			wizard.drive2Exit();
+        			pathlength = wizard.getPathLength();
 				} catch (Exception a) {
 					System.out.println("Wizard Drive2Exit Failed Somehow");
 					a.printStackTrace();
@@ -277,7 +283,9 @@ public class StatePlaying implements State {
 				
 				//Attempt to drive to exit
 				try {	
-					wally.drive2Exit(); } 
+					wally.drive2Exit(); 
+					pathlength = wally.getPathLength();
+					} 
 				catch (Exception c) {
 					c.printStackTrace();
 					System.out.println("WallFollower Drive2Exit Failed Somehow"); }
@@ -335,6 +343,7 @@ public class StatePlaying implements State {
         // update the context class with the new state
         // and hand over control to the new state
         control.setState(currentState);
+        currentState.setDriver(drive);
         currentState.start(control, panel);
     }
     
@@ -386,8 +395,7 @@ public class StatePlaying implements State {
             
             // check termination, did we leave the maze?
             if (isOutside(px,py)) {
-            	// TODO: provide actual path length
-                switchFromPlayingToWinning(0);
+                switchFromPlayingToWinning(pathlength);
             }
             break;
         case LEFT: // turn left
@@ -403,8 +411,7 @@ public class StatePlaying implements State {
             walk(-1);
             // check termination, did we leave the maze?
             if (isOutside(px,py)) {
-            	// TODO: provide actual path length
-                switchFromPlayingToWinning(0);
+                switchFromPlayingToWinning(pathlength);
             }
             break;
         case RETURNTOTITLE: // escape to title screen

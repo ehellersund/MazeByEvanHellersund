@@ -3,6 +3,7 @@ package gui;
 import java.util.logging.Logger;
 
 import gui.Constants.UserInput;
+import gui.RobotDriver.Driver;
 
 
 /**
@@ -74,6 +75,8 @@ public class StateWinning implements State {
      * {@link #handleUserInput(UserInput, int) keydown} for handling
      * user input.
      */
+    Driver drive = null;
+    
     public StateWinning() {
        	// initialization of some fields is delayed and done in start method
     	view = null; // initialized in start method
@@ -105,7 +108,7 @@ public class StateWinning implements State {
     	}
         // otherwise show finish screen with winning message
         // draw content on panel
-        view.redrawFinish(panel);
+        view.redrawFinish(panel, drive, pathLength);
         // update screen with panel content
         panel.update();
 
@@ -153,6 +156,10 @@ public class StateWinning implements State {
      */
     public void setPathLength(int pathLength) {
         this.pathLength = pathLength;
+    }
+    //Although the driver is never used in this state it will be used in drawing graphics
+    public void setDriver(Driver driver) {
+    	this.drive = driver;
     }
 }
 
