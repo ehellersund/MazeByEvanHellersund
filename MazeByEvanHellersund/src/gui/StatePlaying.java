@@ -241,8 +241,10 @@ public class StatePlaying implements State {
 				wally.setRobot(bot);
 				System.out.println("Robot initialized");
 				
-				// /*Could do this in WallFollower instead?
+				///*Could do this in WallFollower instead?
 				//Begin failure + repair process
+				//boolean firstUnreliable = true;
+				
 				for (int i = 0; i < sensorConf.length(); i++) {
 					if (Character.getNumericValue(sensorConf.charAt(i)) == 0) {
 						switch(i) {
@@ -283,6 +285,7 @@ public class StatePlaying implements State {
         	}
     	}
     }
+    
     /**
      * Initializes the drawer for the first person view
      * and the map view and then draws the initial screen

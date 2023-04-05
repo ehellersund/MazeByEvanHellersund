@@ -24,9 +24,9 @@ public class UnreliableSensor extends ReliableSensor implements Runnable {
 	
 	boolean threadRunning = false; //Indicates the thread is going
 	boolean off = false;  //Indicates whether the sensor is running
-	int uptime = 0;
-	int downtime = 0;
-	private Thread repair;
+	int uptime = 0; //How long it lasts before it needs a repair
+	int downtime = 0; //How long it takes to repair
+	private Thread repair; 
 
 	@Override
 	public int distanceToObstacle(int[] currentPosition, CardinalDirection currentDirection, float[] powersupply)
