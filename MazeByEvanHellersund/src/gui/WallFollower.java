@@ -103,7 +103,7 @@ public class WallFollower implements RobotDriver {
 	public boolean drive2Exit() throws Exception {
 		while (robot.isAtExit() == false) {
 			drive1Step2Exit();
-			Thread.sleep(500);
+			Thread.sleep(1000);
 		}
 		return false;
 	}
@@ -114,10 +114,11 @@ public class WallFollower implements RobotDriver {
 	//If there is no wall to the left, rotate left, then forward
 	//If there is a wall left and in front, rotate right. If still wall in front, right again (backwards)
 		System.out.println("Left" + robot.distanceToObstacle(Direction.LEFT));
-		if (robot.distanceToObstacle(Direction.LEFT) == -1) {
+		if (robot.distanceToObstacle(Direction.FORWARD) == -1 && robot.distanceToObstacle(Direction.LEFT) == -1 && robot.distanceToObstacle(Direction.RIGHT) == -1 && robot.distanceToObstacle(Direction.BACKWARD) == -1) {
 			System.out.println("All sensors are off");
 			return false;
 		}
+		
 		if (robot.distanceToObstacle(Direction.LEFT) > 0) {
 			robot.rotate(Turn.LEFT);
 			robot.move(1);
