@@ -1,6 +1,5 @@
 package gui;
 
-import generation.CardinalDirection;
 import generation.Maze;
 import gui.Robot.Direction;
 import gui.Robot.Turn;
@@ -105,7 +104,7 @@ public class WallFollower implements RobotDriver {
 		while (robot.isAtExit() == false) {
 			drive1Step2Exit();
 		}
-		return false;
+		return (useMaze.getDistanceToExit(robot.getCurrentPosition()[0], robot.getCurrentPosition()[1]) == 0 && useMaze.getExitPosition() == robot.getCurrentPosition()) ? true : false;
 	}
 
 	@Override
